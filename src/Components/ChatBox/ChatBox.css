@@ -1,0 +1,21 @@
+.chat-box-enter {
+  opacity: 0;
+  transform: translateY(100%);
+}
+
+.chat-box-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.chat-box-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.chat-box-exit-active {
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity 300ms, transform 300ms;
+}

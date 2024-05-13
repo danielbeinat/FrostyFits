@@ -1,0 +1,35 @@
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 50%;
+  height: auto;
+  margin: 5px 0 15px 65px;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    margin: 25px 0 0 0;
+    justify-content: center;
+    justify-content: center;
+  }
+  span {
+    background-color: white;
+    padding: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+  }
+
+  .link {
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 14px;
+    color: black;
+  }
+
+  .chevron {
+    font-size: 15px;
+    font-weight: bold;
+  }
+}

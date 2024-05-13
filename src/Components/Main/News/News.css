@@ -1,0 +1,49 @@
+.news h1 {
+  text-align: center;
+}
+.news .products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 40px;
+}
+.news .products article {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  padding-bottom: 10px;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.news .products article img {
+  width: 100%;
+  height: auto;
+}
+.news .products article h1 {
+  font-size: 13px;
+}
+.news .products article span {
+  font-size: 15px;
+}
+.news .products article p {
+  opacity: 0.8;
+  font-size: 13px;
+}
+.news .products article .ofert {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #000;
+  padding: 10px;
+  border-radius: 0 0 10px 0;
+}
+.news .products article .ofert h1 {
+  color: white;
+}/*# sourceMappingURL=News.css.map */

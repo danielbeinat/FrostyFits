@@ -1,0 +1,25 @@
+.service {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 70px;
+  margin: 80px;
+}
+.service article {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.service article h1 {
+  color: #000;
+  font-size: 15px;
+}
+.service article .icon {
+  font-size: 30px;
+}
+@media screen and (max-width: 767px) {
+  .service {
+    display: none;
+  }
+}/*# sourceMappingURL=Service.css.map */
