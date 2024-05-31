@@ -51,9 +51,7 @@ export const Navbar = () => {
         <div className="user">
           <Favorite />
           <LoginIcon />
-
           <SearchResponsive />
-
           <CartIcon />
           <CartModal open={isOpen} setOpen={setIsOpen} />
         </div>
