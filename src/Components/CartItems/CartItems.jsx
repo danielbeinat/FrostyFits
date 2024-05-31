@@ -2,6 +2,7 @@ import { useContext } from "react";
 import "./CartItems.scss";
 import { ShoopContext } from "../../Context/ShoopContext";
 import { MdDelete } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 export const CartItems = () => {
   const { Allproducts, cart, removeFromCart, getTotalCartAmount } =
@@ -57,7 +58,10 @@ export const CartItems = () => {
                 <p>$ {getTotalCartAmount().toLocaleString()}</p>
               </div>
             </div>
-            <button type="submit">Comprar</button>
+
+            <Link to={"/checkout"} onClick={() => windows.scrollTo(0, 0)}>
+              <button type="submit">Comprar</button>
+            </Link>
           </div>
 
           <div className="promo">

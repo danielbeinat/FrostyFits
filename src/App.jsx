@@ -9,6 +9,7 @@ import { Product } from "./Pages/Product";
 import { Category } from "./Pages/Category";
 import { ChatBox } from "./Components/ChatBox/ChatBox";
 import { SearchPage } from "./Pages/SearchPage";
+import { Checkout } from "../src/Components/Checkout/Checkout";
 
 export const App = () => {
   return (
@@ -30,6 +31,8 @@ export const App = () => {
         <Route path="/calzado" element={<Category category="calzado" />} />
 
         <Route path="/search/:searchQuery" element={<SearchPage />} />
+
+        <Route path="/checkout" element={<Checkout />} />
       </Routes>
 
       <ChatBox />
