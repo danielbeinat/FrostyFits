@@ -59,8 +59,12 @@ export const CartItems = () => {
               </div>
             </div>
 
-            <Link to={"/checkout"} onClick={() => windows.scrollTo(0, 0)}>
-              <button type="submit">Comprar</button>
+            <Link
+              className="bg-black text-white text-center p-2 rounded w-32"
+              to={"/checkout"}
+              onClick={() => windows.scrollTo(0, 0)}
+            >
+              comprar
             </Link>
           </div>
 
