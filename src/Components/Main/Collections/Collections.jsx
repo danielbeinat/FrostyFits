@@ -18,7 +18,6 @@ export const Collections = () => {
               key={item.id}
             >
               <img
-                loading="lazy"
                 className="h-[550px] w-full object-cover 
 
               rounded"
