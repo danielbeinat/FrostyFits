@@ -1,5 +1,6 @@
-.news h1 {
-  text-align: center;
+.news {
+  padding: 20px;
+  margin: 60px 0 20px 0;
 }
 .news .products {
   display: grid;
@@ -7,43 +8,10 @@
   align-items: center;
   justify-content: center;
   gap: 40px;
-  padding: 40px;
+  padding: 20px;
 }
-.news .products article {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 10px;
-  position: relative;
-  padding-bottom: 10px;
-  background-color: #fff;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-.news .products article img {
-  width: 100%;
-  height: auto;
-}
-.news .products article h1 {
-  font-size: 13px;
-}
-.news .products article span {
-  font-size: 15px;
-}
-.news .products article p {
-  opacity: 0.8;
-  font-size: 13px;
-}
-.news .products article .ofert {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: #000;
-  padding: 10px;
-  border-radius: 0 0 10px 0;
-}
-.news .products article .ofert h1 {
-  color: white;
+@media screen and (max-width: 768px) {
+  .news .products {
+    padding: 0;
+  }
 }/*# sourceMappingURL=News.css.map */

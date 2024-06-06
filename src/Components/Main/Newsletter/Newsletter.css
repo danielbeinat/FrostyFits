@@ -4,13 +4,14 @@
   justify-content: center;
   flex-direction: column;
   background-color: black;
-  gap: 25px;
+  gap: 35px;
   padding: 35px 0 35px 0;
   margin-top: 30px;
 }
 .newsletter h1 {
   color: white;
-  font-weight: 600;
+  font-weight: bold;
+  font-size: 30px;
 }
 @media screen and (max-width: 767px) {
   .newsletter h1 {
@@ -36,10 +37,16 @@
 }
 .newsletter .form input {
   padding: 12px;
-  width: 300px;
+  width: 350px;
   border-radius: 5px;
   border: none;
   outline: none;
+}
+@media screen and (max-width: 767px) {
+  .newsletter .form input {
+    width: 250px;
+    text-align: center;
+  }
 }
 .newsletter .form button {
   padding: 12px;
@@ -48,6 +55,9 @@
   background-color: #1dbf73;
   border: none;
   cursor: pointer;
+}
+.newsletter .form button:hover {
+  background-color: #1b945c;
 }
 @media screen and (max-width: 767px) {
   .newsletter .form {
@@ -61,6 +71,6 @@
 }
 .newsletter .socials .icon {
   color: white;
-  font-size: 20px;
+  font-size: 25px;
   cursor: pointer;
 }/*# sourceMappingURL=Newsletter.css.map */

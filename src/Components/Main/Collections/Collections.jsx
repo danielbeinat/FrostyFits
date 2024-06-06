@@ -8,7 +8,7 @@ export const Collections = () => {
         {collectionData.map((item) => (
           <Link
             key={item.id}
-            to={"/hombre"}
+            to={item.to}
             onClick={() => window.scrollTo(0, 0)}
           >
             <article

@@ -10,6 +10,9 @@ import { Category } from "./Pages/Category";
 import { ChatBox } from "./Components/ChatBox/ChatBox";
 import { SearchPage } from "./Pages/SearchPage";
 import { Checkout } from "../src/Components/Checkout/Checkout";
+import { Shirts } from "../src/Pages/ColectionClothing/Shirts";
+import { Jacket } from "./Pages/ColectionClothing/Jacket";
+import { Pants } from "../src/Pages/ColectionClothing/Pants";
 
 export const App = () => {
   return (
@@ -33,6 +36,9 @@ export const App = () => {
         <Route path="/search/:searchQuery" element={<SearchPage />} />
 
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/shirts" element={<Shirts />} />
+        <Route path="/jacket" element={<Jacket />} />
+        <Route path="/pants" element={<Pants />} />
       </Routes>
 
       <ChatBox />

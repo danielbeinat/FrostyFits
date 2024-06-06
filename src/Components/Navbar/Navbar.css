@@ -6,7 +6,7 @@
 
 .container {
   background-color: black;
-  overflow: hidden; /* Evita que el contenido se desborde */
+  overflow: hidden;
 }
 .container .move {
   display: flex;
@@ -108,7 +108,7 @@ header .user {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 25px;
+  gap: 15px;
 }
 header .user .icons {
   position: relative;
@@ -186,4 +186,4 @@ header .user .icons span {
     cursor: pointer;
     font-size: 1.5rem;
   }
-} /*# sourceMappingURL=Navbar.css.map */
+}/*# sourceMappingURL=Navbar.css.map */

@@ -1,6 +1,11 @@
 .cart-items {
   margin: 50px 100px;
 }
+@media screen and (max-width: 768px) {
+  .cart-items {
+    margin: 50px 20px;
+  }
+}
 .cart-items hr {
   background: #ccc;
   height: 3px;

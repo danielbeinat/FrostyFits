@@ -7,16 +7,29 @@
 }
 .service article {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  gap: 8px;
+  gap: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 8px;
 }
-.service article h1 {
-  color: #000;
+.service article img {
+  width: 35px;
+  height: 35px;
+}
+.service article .text {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.service article .text h1 {
   font-size: 15px;
+  font-weight: bold;
 }
-.service article .icon {
-  font-size: 30px;
+.service article .text h2 {
+  font-size: 13px;
+  opacity: 0.9;
 }
 @media screen and (max-width: 767px) {
   .service {

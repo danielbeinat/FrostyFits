@@ -2,8 +2,8 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  width: 220px;
-  height: 40px;
+  width: 50%;
+  height: auto;
   margin: 5px 0 15px 65px;
 }
 @media screen and (max-width: 768px) {

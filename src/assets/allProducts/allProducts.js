@@ -14,6 +14,7 @@ export const Allproducts = [
 
     rating: 3,
     sizes: ["XS", "S", "M", "L", "XL", "XXL"],
+    type: "Remera",
   },
   {
     id: 2,
@@ -30,6 +31,7 @@ export const Allproducts = [
 
     rating: 4,
     sizes: ["XS", "S", "M", "L", "XL", "XXL"],
+    type: "Buzo",
   },
   {
     id: 3,
@@ -46,6 +48,7 @@ export const Allproducts = [
 
     rating: 5,
     sizes: ["XS", "S", "M", "L", "XL", "XXL"],
+    type: "Jean",
   },
   {
     id: 4,
@@ -62,6 +65,8 @@ export const Allproducts = [
 
     rating: 3,
     sizes: ["XS", "S", "M", "L", "XL", "XXL"],
+    type: "Buzo",
+
   },
   {
     id: 5,
@@ -92,6 +97,7 @@ export const Allproducts = [
 
     rating: 5,
     sizes: ["XS", "S", "M", "L", "XL", "XXL"],
+    type: "Jean",
   },
   {
     id: 7,
@@ -106,6 +112,7 @@ export const Allproducts = [
 
     rating: 5,
     sizes: ["XS", "S", "M", "L", "XL", "XXL"],
+    type: "Campera",
   },
   {
     id: 8,
@@ -122,6 +129,7 @@ export const Allproducts = [
 
     rating: 5,
     sizes: ["XS", "S", "M", "L", "XL", "XXL"],
+    type: "Campera",
   },
   {
     id: 9,
@@ -137,6 +145,7 @@ export const Allproducts = [
 
     rating: 5,
     sizes: ["XS", "S", "M", "L", "XL", "XXL"],
+    type: "Campera",
   },
   {
     id: 10,
@@ -153,6 +162,7 @@ export const Allproducts = [
 
     rating: 5,
     sizes: ["XS", "S", "M", "L", "XL", "XXL"],
+    type: "Jean",
   },
   {
     id: 11,
@@ -183,6 +193,8 @@ export const Allproducts = [
 
     rating: 4.5,
     sizes: ["XS", "S", "M", "L", "XL", "XXL"],
+    type: "Remera",
+
   },
   {
     id: 13,
@@ -197,6 +209,7 @@ export const Allproducts = [
 
     rating: 3.5,
     sizes: ["XS", "S", "M", "L", "XL", "XXL"],
+    type: "Campera",
   },
   {
     id: 14,
@@ -225,6 +238,8 @@ export const Allproducts = [
 
     rating: 4.5,
     sizes: ["XS", "S", "M", "L", "XL", "XXL"],
+    type: "Buzo",
+
   },
   {
     id: 16,
@@ -241,6 +256,8 @@ export const Allproducts = [
 
     rating: 4,
     sizes: ["XS", "S", "M", "L", "XL", "XXL"],
+    type: "Buzo",
+
   },
 
   {
@@ -257,6 +274,8 @@ export const Allproducts = [
       "Este buzo es una prenda versátil que combina comodidad y estilo en uno solo.",
     rating: 4,
     sizes: ["XS", "S", "M", "L", "XL", "XXL"],
+    type: "Buzo",
+
   },
   {
     id: 18,
@@ -271,6 +290,8 @@ export const Allproducts = [
 
     rating: 4,
     sizes: ["XS", "S", "M", "L", "XL", "XXL"],
+    type: "Buzo",
+
   },
   {
     id: 19,
@@ -287,6 +308,8 @@ export const Allproducts = [
 
     rating: 3,
     sizes: ["XS", "S", "M", "L", "XL", "XXL"],
+    type: "Buzo",
+
   },
   {
     id: 20,
@@ -314,8 +337,10 @@ export const Allproducts = [
     ofert:
       "Este jean azul claro es una opción fresca y versátil para tu guardarropa. ",
 
+
     rating: 4,
     sizes: ["XS", "S", "M", "L", "XL", "XXL"],
+    type: "Jean",
   },
   {
     id: 22,
@@ -328,8 +353,11 @@ export const Allproducts = [
     ofert:
       "Esta remera celeste es una opción refrescante y versátil para tu vestuario. ",
 
+
     rating: 4.5,
     sizes: ["XS", "S", "M", "L", "XL", "XXL"],
+    type: "Remera",
+
   },
   {
     id: 23,
@@ -360,6 +388,8 @@ export const Allproducts = [
 
     rating: 3,
     sizes: ["XS", "S", "M", "L", "XL", "XXL"],
+    type: "Buzo",
+
   },
 
   {
