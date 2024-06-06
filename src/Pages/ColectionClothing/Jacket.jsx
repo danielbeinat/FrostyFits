@@ -44,10 +44,10 @@ export const Jacket = () => {
 
   return (
     <>
-      <div className="mt-20 px-7 mb-[90px]">
-        <div className="flex justify-between px-2 mb-8">
+      <div className="md:mt-20 mt-10 md:px-7 mb-[90px]">
+        <div className="flex justify-between items-center gap-10 flex-col md:flex-row px-2 mb-8">
           <div className="flex">
-            <Link className="font-bold" to="/">
+            <Link className="font-bold " to="/">
               Inicio
             </Link>
 
@@ -55,8 +55,8 @@ export const Jacket = () => {
 
             <span>{"Camperas"}</span>
           </div>
-          <div className="sort flex gap-2">
-            <h1>Ordenar por: </h1>
+          <div className="sort flex flex-col md:flex-row items-start md:items-center md:flex gap-2">
+            <h1 className="text-xs md:text-sm text-start">Ordenar por: </h1>
 
             <select
               className="h-8 w-60 text-xs border-2 border-gray-400 rounded-md"
@@ -74,7 +74,7 @@ export const Jacket = () => {
             </select>
           </div>
         </div>
-        <div className="grid grid-cols-1 gap-10 px-2 md:grid-cols-4 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-10 md:px-2 px-5 md:grid-cols-4 lg:grid-cols-4">
           {sortedProducts.map((item) => (
             <Item
               key={item.id}
