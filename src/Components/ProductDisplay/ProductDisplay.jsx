@@ -4,6 +4,7 @@ import { ProductSlider } from "./ProuductSlider/ProductSlider";
 import { CartModal } from "../CartModal/CartModal";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import CreditCard from "../../assets/CreditCard.svg";
 
 import "./ProductDisplay.scss";
 import { useContext } from "react";
@@ -42,7 +43,7 @@ export const ProductDisplay = (props) => {
           </div>
           <div className="product-description">
             <div className="card">
-              <i className="fa-regular fa-credit-card"></i>
+              <img src={CreditCard} alt="" />
               <p>{product.description}</p>
             </div>
 

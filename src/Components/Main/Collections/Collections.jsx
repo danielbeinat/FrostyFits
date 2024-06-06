@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
 import { collectionData } from "/src/assets/Collections/Collections.js";
 
-import "react-lazy-load-image-component/src/effects/blur.css";
-
 export const Collections = () => {
   return (
     <>
