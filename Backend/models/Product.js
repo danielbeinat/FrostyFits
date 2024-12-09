@@ -7,7 +7,7 @@ const ProductSchema = new mongoose.Schema({
     price: { type: Number, required: true },
     aviable: { type: Boolean, default: true },
     date: { type: Date, default: Date.now },
-    type: { type: String, required: true }, // Nuevo campo para especificar el tipo
+    type: { type: String, required: true },
     sizes: { type: [String], default: [], required: true },
 
 
