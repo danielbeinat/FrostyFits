@@ -1,4 +1,4 @@
-import Subscriber from '../models/subscriberModel.js';
+import Subscriber from "../models/subscriberModel.js";
 import sendEmail from '../config/sendMail.js'; // Importa la función para enviar correos
 import nodemailer from "nodemailer";
 
