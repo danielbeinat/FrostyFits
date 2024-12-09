@@ -4,8 +4,8 @@ import path from "path";
 
 const router = express.Router();
 
-// const API_URL = "http://localhost:3000/images/";
-const API_URL = "https://frostyfits-backend.onrender.com"
+const API_URL = process.env.API_URL || "http://localhost:3000";
+
 
 // Configuración de almacenamiento para multer
 const storage = multer.diskStorage({
