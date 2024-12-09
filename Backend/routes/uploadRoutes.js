@@ -4,6 +4,9 @@ import path from "path";
 
 const router = express.Router();
 
+// const API_URL = "http://localhost:3000/images/";
+const API_URL = "https://frostyfits-backend.onrender.com"
+
 // Configuración de almacenamiento para multer
 const storage = multer.diskStorage({
     destination: "./upload/images",
@@ -21,7 +24,7 @@ router.post("/upload", upload.single("product"), (req, res) => {
     }
     res.json({
         success: 1,
-        image_url: "http://localhost:3000/images/" + req.file.filename,
+        image_url: API_URL + "/images/" + req.file.filename,
     });
 });
 
