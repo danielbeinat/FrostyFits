@@ -1,15 +1,14 @@
 import { useState, useEffect } from "react";
 import { Item } from "../../Item/Item";
 import "./News.scss";
+import { API_URL } from "../../../config/config.js";
 
 export const News = () => {
   const [Allproducts, setAllproducts] = useState([]);
 
   const FetchNews = async () => {
     try {
-      const response = await fetch(
-        "http://localhost:3000/api/products/newcollection"
-      );
+      const response = await fetch(`${API_URL}/api/products/newcollection`);
 
       const data = await response.json();
 

@@ -158,6 +158,7 @@
 
 import React, { useState } from "react";
 import upload from "../assets/upload.svg";
+import { API_URL } from "../config/config.js";
 
 export const AddProduct = () => {
   const [image, setImage] = useState(null);
@@ -225,7 +226,7 @@ export const AddProduct = () => {
       const formData = new FormData();
       formData.append("product", image);
 
-      const uploadResponse = await fetch("http://localhost:3000/api/upload", {
+      const uploadResponse = await fetch(`${API_URL}/api/upload`, {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -241,17 +242,14 @@ export const AddProduct = () => {
           image: uploadData.image_url,
         };
 
-        const addProductResponse = await fetch(
-          "http://localhost:3000/api/products/add",
-          {
-            method: "POST",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(updatedProduct),
-          }
-        );
+        const addProductResponse = await fetch(`${API_URL}/api/products/add`, {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedProduct),
+        });
 
         const addProductData = await addProductResponse.json();
 

@@ -1,5 +1,6 @@
 //si el usuario no esta logueado no muestra la lista de deseos
 import { createContext, useState, useEffect } from "react";
+import { API_URL } from "../config/config.js";
 
 export const ShoopContext = createContext(null);
 
@@ -13,15 +14,13 @@ export const ShoopProvider = (props) => {
 
   const FetchProduct = async () => {
     try {
-      const response = await fetch(
-        "http://localhost:3000/api/products/allproducts"
-      );
+      const response = await fetch(`${API_URL}/api/products/allproducts`);
 
       const data = await response.json();
       setAllproducts(data);
       console.log(data);
       if (localStorage.getItem("auth-token")) {
-        fetch("http://localhost:3000/api/users/getCart", {
+        fetch(`${API_URL}/api/users/getCart`, {
           method: "GET", // Cambia POST a GET
           headers: {
             Accept: "application/json",
@@ -50,7 +49,7 @@ export const ShoopProvider = (props) => {
   const addToCart = (itemId) => {
     setcart((prev) => ({ ...prev, [itemId]: (prev[itemId] || 0) + 1 }));
     if (localStorage.getItem("auth-token")) {
-      fetch("http://localhost:3000/api/users/addToCart", {
+      fetch(`${API_URL}/api/users/addToCart`, {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -71,7 +70,7 @@ export const ShoopProvider = (props) => {
     setcart((prev) => ({ ...prev, [itemId]: (prev[itemId] || 0) - 1 }));
 
     if (localStorage.getItem("auth-token")) {
-      fetch("http://localhost:3000/api/users/removeFromCart", {
+      fetch(`${API_URL}/api/users/removeFromCart`, {
         method: "POST",
         headers: {
           Accept: "application/json",

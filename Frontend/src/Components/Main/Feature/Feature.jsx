@@ -1,15 +1,14 @@
 import { useState, useEffect } from "react";
 import { Item } from "../../Item/Item";
 import "./Feature.scss";
+import { API_URL } from "../../../config/config.js";
 
 export const Feature = () => {
   const [Trading, setTrading] = useState([]);
 
   const FetchTrading = async () => {
     try {
-      const response = await fetch(
-        "http://localhost:3000/api/products/trending"
-      );
+      const response = await fetch(`${API_URL}/api/products/trending`);
 
       const data = await response.json();
 

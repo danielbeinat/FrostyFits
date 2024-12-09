@@ -2,6 +2,7 @@ import { FaFacebook } from "react-icons/fa";
 import { AiFillTwitterCircle } from "react-icons/ai";
 import { FaInstagram } from "react-icons/fa";
 import { useState } from "react";
+import { API_URL } from "../../../config/config.js";
 
 import "./Newsletter.scss";
 
@@ -20,16 +21,13 @@ export const Newsletter = () => {
     }
 
     try {
-      const response = await fetch(
-        "http://localhost:3000/api/subscribers/subscribe",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email }),
-        }
-      );
+      const response = await fetch(`${API_URL}/api/subscribers/subscribe`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
 
       const data = await response.json();
 

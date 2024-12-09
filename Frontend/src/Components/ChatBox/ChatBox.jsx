@@ -3,6 +3,7 @@ import { BsChatRightFill } from "react-icons/bs";
 import "./ChatBox.css";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { MessageCircle, Send } from "lucide-react";
+import { API_URL } from "../../config/config.js";
 
 // import { Hand } from "lucide-react";
 
@@ -37,7 +38,7 @@ export const ChatBox = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:3000/api/subscribers/send-contact-email",
+        `${API_URL}/api/subscribers/send-contact-email`,
         {
           method: "POST",
           headers: {

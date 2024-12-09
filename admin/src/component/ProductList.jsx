@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
+import { API_URL } from "../config/config.js";
 
 export const ProductList = () => {
   const [products, setProducts] = useState([]);
 
   const FetchProduct = async () => {
     try {
-      const response = await fetch(
-        "http://localhost:3000/api/products/allproducts"
-      );
+      const response = await fetch(`${API_URL}/api/products/allproducts`);
 
       const data = await response.json();
       setProducts(data);
@@ -18,17 +17,14 @@ export const ProductList = () => {
 
   const DeleteProduct = async (id) => {
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/products/removeproduct`,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ id }),
-        }
-      );
+      const response = await fetch(`${API_URL}/api/products/removeproduct`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id }),
+      });
       const data = await response.json();
       if (data.success) {
         setProducts(products.filter((product) => product._id !== id)); // Filtrar usando _id

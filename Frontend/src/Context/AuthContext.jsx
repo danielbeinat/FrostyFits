@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 
 export const AuthContext = createContext(null);
+import { API_URL } from "../config/config.js";
 
 export const AuthProvider = (props) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -11,7 +12,7 @@ export const AuthProvider = (props) => {
     const token = localStorage.getItem("auth-token");
     if (token) {
       // Lógica para verificar el token, por ejemplo, llamando a un endpoint de validación
-      fetch("http://localhost:3000/api/users/validateToken", {
+      fetch(`${API_URL}/api/users/validateToken`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -39,7 +40,7 @@ export const AuthProvider = (props) => {
   // Función para iniciar sesión
   const login = async (email, password) => {
     try {
-      const response = await fetch("http://localhost:3000/api/users/login", {
+      const response = await fetch(`${API_URL}/api/users/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

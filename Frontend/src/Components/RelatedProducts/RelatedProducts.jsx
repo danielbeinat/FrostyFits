@@ -1,15 +1,14 @@
 import "./RelatedProducts.scss";
 import { Item } from "../Item/Item";
 import { useState, useEffect } from "react";
+import { API_URL } from "../../config/config.js";
 
 export const RelatedProducts = ({ category }) => {
   const [related, setrelated] = useState([]);
 
   const FetchRelated = async () => {
     try {
-      const response = await fetch(
-        "http://localhost:3000/api/products/allproducts"
-      );
+      const response = await fetch(`${API_URL}/api/products/allproducts`);
       const data = await response.json();
       setrelated(data);
     } catch (error) {
