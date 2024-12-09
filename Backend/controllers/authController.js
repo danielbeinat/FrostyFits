@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs"; // Cambia esto si decides usar bcryptjs
+
 import User from "../models/User.js";
 import { secretKey, expiresIn } from "../config/jwtConfig.js";
 
