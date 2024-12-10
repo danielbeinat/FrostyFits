@@ -55,7 +55,9 @@ export const Navbar = () => {
           <Search />
 
           <div className="user">
-            <Favorite />
+            <div className="favorite">
+              <Favorite />
+            </div>
             <LoginIcon />
             <SearchResponsive />
             <CartIcon />

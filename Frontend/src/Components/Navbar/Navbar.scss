@@ -64,8 +64,8 @@ header {
       height: 30px;
 
       @media screen and (max-width: 767px) {
-        width: 120px;
-        height: 40px;
+        width: 110px;
+        height: 25px;
       }
     }
   }
@@ -166,7 +166,13 @@ header {
     justify-content: space-between;
     padding: 10px 20px;
 
-    .user-icon {
+    // .user-icon {
+    //   display: none;
+    // }
+    .user {
+      gap: 5px;
+    }
+    .favorite {
       display: none;
     }
 
@@ -205,5 +211,16 @@ header {
       cursor: pointer;
       font-size: 1.5rem;
     }
+  }
+}
+
+.responsive-link {
+  display: none;
+}
+
+/* Mostrar enlaces responsivos en pantallas pequeñas */
+@media (max-width: 768px) {
+  .responsive-link {
+    display: block;
   }
 }

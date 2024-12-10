@@ -19,4 +19,8 @@
 
 body {
   padding-top: 125px;
+
+  @media screen and (max-width: 768px) {
+    padding-top: 70px;
+  }
 }

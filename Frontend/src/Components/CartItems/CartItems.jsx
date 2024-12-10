@@ -85,15 +85,15 @@ export const CartItems = () => {
         <div className="w-full md:w-1/2 lg:w-1/3 bg-white shadow-lg rounded-lg p-6">
           <h2 className="text-xl font-semibold mb-4">Código Promocional</h2>
           <p className="text-gray-600 mb-4">¿Tienes un cupón?</p>
-          <div className="flex">
+          <div className="flex md:flex-row flex-col gap-4 md:gap-0">
             <input
               type="text"
               placeholder="Código promocional"
-              className="flex-grow px-4 py-2 rounded-l-full border-2 border-r-0 border-gray-300 focus:outline-none focus:border-black"
+              className="flex-grow px-4 py-2 md:rounded-l-full md:rounded-r-none rounded-full border-2 md:border-r-0 border-gray-300 focus:outline-none focus:border-black"
             />
             <button
               type="submit"
-              className="bg-black text-white px-6 py-2 rounded-r-full"
+              className="bg-black text-white px-6 py-2 rounded-full md:rounded-l-none  md:rounded-r-full "
             >
               Aplicar
             </button>

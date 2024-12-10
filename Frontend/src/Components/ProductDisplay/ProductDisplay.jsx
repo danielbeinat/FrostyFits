@@ -37,7 +37,7 @@ export const ProductDisplay = (props) => {
 
   return (
     <>
-      <div className="flex gap-10 mx-[40px] font-parkinsans">
+      <div className="flex md:gap-10 md:mx-[40px] flex-col md:flex-row mx-4 font-parkinsans">
         <div className="">
           <ProductSlider product={product} />
         </div>
@@ -102,7 +102,7 @@ export const ProductDisplay = (props) => {
           <div className="flex flex-col gap-3 w-full">
             <Link onClick={toggleModal}>
               <button
-                className="inline-flex justify-center w-[350px] px-4 py-3 text-sm  font-medium  text-black border borde-2  border-gray-500 rounded-md"
+                className="inline-flex justify-center md:w-[350px] w-[250px] px-4 py-3 text-sm  font-medium  text-black border borde-2  border-gray-500 rounded-md"
                 onClick={() => addToCart(product._id, selectedSize, quantity)} // Puedes pasar también el tamaño y la cantidad al carrito
               >
                 Agregar al Carrito
@@ -110,7 +110,7 @@ export const ProductDisplay = (props) => {
             </Link>
             <Link to={"/cart"} onClick={toggleModal}>
               <button
-                className="inline-flex justify-center w-[350px] px-4 py-3 text-sm font-medium text-white bg-black border border-transparent rounded-md"
+                className="inline-flex justify-center md:w-[350px] w-[250px] px-4 py-3 text-sm font-medium text-white bg-black border border-transparent rounded-md"
                 onClick={() => addToCart(product._id, selectedSize, quantity)}
               >
                 Comprar ahora

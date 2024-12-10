@@ -26,7 +26,7 @@ export const RelatedProducts = ({ category }) => {
 
   return (
     <>
-      <div className="relatedproduct">
+      <div className="relatedproduct font-parkinsans">
         <h1 className="text-center text-3xl">Productos Relacionados</h1>
 
         <div className="items">

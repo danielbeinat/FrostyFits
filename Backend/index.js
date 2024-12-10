@@ -16,11 +16,11 @@ dotenv.config();
 db();
 
 // Middleware
-// app.use(cors());
-app.use(cors({
-    origin: 'https://frostyfits.onrender.com', // Cambia esto por tu dominio de frontend
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Especifica los métodos permitidos
-}));
+app.use(cors());
+// app.use(cors({
+//     origin: 'https://frostyfits.onrender.com', // Cambia esto por tu dominio de frontend
+//     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Especifica los métodos permitidos
+// }));
 // app.use(helmet());
 
 
