@@ -15,7 +15,7 @@ const app = express();
 dotenv.config();
 db();
 
-Middleware
+// Middleware
 app.use(cors());
 app.use(cors({
     origin: 'https://frostyfits.onrender.com', // Cambia esto por tu dominio de frontend
