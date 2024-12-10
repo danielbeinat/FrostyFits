@@ -45,7 +45,7 @@ export const ShoopProvider = (props) => {
     FetchProduct();
   }, []);
 
-  const addToCart = (itemId, size, quantity) => {
+  const addToCart = (itemId) => {
     setcart((prev) => ({ ...prev, [itemId]: (prev[itemId] || 0) + 1 }));
     if (localStorage.getItem("auth-token")) {
       fetch(`${API_URL}/api/users/addToCart`, {
@@ -55,7 +55,7 @@ export const ShoopProvider = (props) => {
           "auth-token": `${localStorage.getItem("auth-token")}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ itemId, size, quantity }),
+        body: JSON.stringify({ itemId }),
       })
         .then((res) => res.json())
         .then((data) => {
