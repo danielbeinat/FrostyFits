@@ -8,26 +8,26 @@ import userRoutes from "./routes/userRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
 import subscriberRoutes from "./routes/subscriberRoutes.js";
 import errorHandler from "./middlewares/errorHandler.js";
-import helmet from "helmet";
+// import helmet from "helmet";
 
 
 const app = express();
 dotenv.config();
 db();
 
-// Middleware
-// app.use(cors());
-// app.use(cors({
-//     origin: 'https://frostyfits.onrender.com', // Cambia esto por tu dominio de frontend
-//     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Especifica los métodos permitidos
-// }));
-app.use(helmet());
-
-
+Middleware
+app.use(cors());
 app.use(cors({
-    origin: process.env.CLIENT_URL || 'http://localhost:3000', // Dominio dinámico según el entorno
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
+    origin: 'https://frostyfits.onrender.com', // Cambia esto por tu dominio de frontend
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Especifica los métodos permitidos
 }));
+// app.use(helmet());
+
+
+// app.use(cors({
+//     origin: process.env.CLIENT_URL || 'http://localhost:3000', // Dominio dinámico según el entorno
+//     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
+// }));
 
 app.use(express.json());
 app.use("/images", express.static("upload/images"));
