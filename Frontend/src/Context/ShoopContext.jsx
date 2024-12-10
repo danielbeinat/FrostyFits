@@ -45,7 +45,7 @@ export const ShoopProvider = (props) => {
     FetchProduct();
   }, []);
 
-  const addToCart = (itemId) => {
+  const addToCart = (itemId, size, quantity) => {
     setcart((prev) => ({ ...prev, [itemId]: (prev[itemId] || 0) + 1 }));
     if (localStorage.getItem("auth-token")) {
       fetch(`${API_URL}/api/users/addToCart`, {
