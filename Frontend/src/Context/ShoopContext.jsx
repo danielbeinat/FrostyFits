@@ -55,7 +55,7 @@ export const ShoopProvider = (props) => {
           "auth-token": `${localStorage.getItem("auth-token")}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ itemId }),
+        body: JSON.stringify({ itemId, size, quantity }),
       })
         .then((res) => res.json())
         .then((data) => {
