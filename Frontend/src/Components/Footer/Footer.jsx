@@ -7,7 +7,6 @@ export function Footer() {
     <footer className="bg-white text-gray-800 font-parkinsans">
       <div className=" mx-auto px-4 py-12">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
-          {/* Logo and Description */}
           <div className="space-y-4">
             <img
               src={Logo}
@@ -26,7 +25,6 @@ export function Footer() {
             </p>
           </div>
 
-          {/* Content Links */}
           <div>
             <h2 className="mb-4 text-xl font-semibold text-gray-900">
               Contenido
@@ -50,7 +48,6 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* FAQ Links */}
           <div>
             <h2 className="mb-4 text-xl font-semibold text-gray-900">
               Preguntas Frecuentes
@@ -74,7 +71,6 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Contact Information */}
           <div>
             <h2 className="mb-4 text-xl font-semibold text-gray-900">
               Sucursal Tienda
@@ -100,13 +96,6 @@ export function Footer() {
           </div>
         </div>
       </div>
-
-      {/* Bottom Bar */}
-      {/* <div className="bg-gray-100 py-4">
-        <div className="mx-auto px-4 text-center text-sm text-gray-800">
-          <p>Diseñado con ❄️ por FrostyFits Team</p>
-        </div>
-      </div> */}
     </footer>
   );
 }

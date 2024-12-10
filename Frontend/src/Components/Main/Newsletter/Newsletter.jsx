@@ -9,7 +9,7 @@ import "./Newsletter.scss";
 export const Newsletter = () => {
   const [email, setEmail] = useState("");
   const [responseMessage, setResponseMessage] = useState("");
-  const [responseType, setResponseType] = useState(""); // Nuevo estado para tipo de respuesta (éxito/error)
+  const [responseType, setResponseType] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,7 +36,7 @@ export const Newsletter = () => {
         setResponseType("success");
 
         setEmail("");
-        // Opcional: limpiar el mensaje después de unos segundos
+        //limpiar el mensaje después de unos segundos
         setTimeout(() => setResponseMessage(""), 5000);
       } else if (response.status === 409) {
         setResponseMessage("Este email ya está suscripto.");

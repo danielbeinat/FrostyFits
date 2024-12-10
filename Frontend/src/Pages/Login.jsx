@@ -31,7 +31,6 @@ export const Login = () => {
         alert("Login successful!");
         localStorage.setItem("auth-token", data.token);
         window.location.replace("/");
-        // Store token and handle redirection or state management
       } else {
         alert(data.msg);
       }

@@ -77,12 +77,3 @@ export const trending = (async (req, res) => {
 });
 
 
-// exports.getRelatedProducts = async (req, res) => {
-//     const { category } = req.query;
-//     try {
-//         const relatedProducts = await Product.find({ category }).limit(4);
-//         res.json(relatedProducts);
-//     } catch (error) {
-//         res.status(500).send({ error: "Error fetching related products" });
-//     }
-// }

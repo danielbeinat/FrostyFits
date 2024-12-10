@@ -15,7 +15,6 @@ export const NavLinks = ({ closeMenu }) => {
           <NavLink
             className={({ isActive }) => (isActive ? "active-link" : null)}
             to={item.to}
-            // onClick={closeMenu}
             onClick={() => {
               closeMenu();
               window.scrollTo({ top: 0, behavior: "smooth" });

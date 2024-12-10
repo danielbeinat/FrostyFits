@@ -10,12 +10,11 @@ export const Jacket = () => {
   const [sortValue, setSortValue] = useState("Menor a Mayor");
 
   useEffect(() => {
-    // Ordenar los productos cuando Allproducts cambie
     console.log(Allproducts);
     console.log(Allproducts.map((product) => product.name));
 
     handleSortChange(sortValue);
-  }, [Allproducts, sortValue]); // Se ejecutará cada vez que Allproducts o sortValue cambien
+  }, [Allproducts, sortValue]);
 
   const handleSortChange = (value) => {
     setSortValue(value); // Actualizar el estado del valor de orden
@@ -32,7 +31,6 @@ export const Jacket = () => {
         break;
     }
 
-    // Filtrar los productos por tipo "Jean"
     newSortedProducts = newSortedProducts.filter(
       (item) => item.type === "Campera"
     );

@@ -29,7 +29,6 @@ export const Shirts = () => {
         break;
     }
 
-    // Filtrar los productos por tipo "Jean"
     newSortedProducts = newSortedProducts.filter(
       (item) => item.type === "Remera"
     );

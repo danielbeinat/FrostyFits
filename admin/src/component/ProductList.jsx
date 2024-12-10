@@ -27,7 +27,7 @@ export const ProductList = () => {
       });
       const data = await response.json();
       if (data.success) {
-        setProducts(products.filter((product) => product._id !== id)); // Filtrar usando _id
+        setProducts(products.filter((product) => product._id !== id));
       } else {
         console.log(data.message);
       }
@@ -38,7 +38,7 @@ export const ProductList = () => {
 
   useEffect(() => {
     FetchProduct();
-  }, []); // Nota la dependencia vacía aquí
+  }, []);
 
   return (
     <table className="w-[900px] ml-10 divide-y divide-gray-200">

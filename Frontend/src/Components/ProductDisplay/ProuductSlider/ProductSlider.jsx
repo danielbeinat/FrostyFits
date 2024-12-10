@@ -33,16 +33,16 @@ export const ProductSlider = ({ product }) => {
           className="mySwiper2"
         >
           <SwiperSlide>
-            <img src={product.image} />
+            <img loading="lazy" src={product.image} />
           </SwiperSlide>
           <SwiperSlide>
-            <img src={product.image} />
+            <img loading="lazy" src={product.image} />
           </SwiperSlide>
           <SwiperSlide>
-            <img src={product.image} />
+            <img loading="lazy" src={product.image} />
           </SwiperSlide>
           <SwiperSlide>
-            <img src={product.image} />
+            <img loading="lazy" src={product.image} />
           </SwiperSlide>
         </Swiper>
         <Swiper
@@ -56,16 +56,16 @@ export const ProductSlider = ({ product }) => {
           direction="vertical"
         >
           <SwiperSlide>
-            <img src={product.image} />
+            <img loading="lazy" src={product.image} />
           </SwiperSlide>
           <SwiperSlide>
-            <img src={product.image} />
+            <img loading="lazy" src={product.image} />
           </SwiperSlide>
           <SwiperSlide>
-            <img src={product.image} />
+            <img loading="lazy" src={product.image} />
           </SwiperSlide>
           <SwiperSlide>
-            <img src={product.image} />
+            <img loading="lazy" src={product.image} />
           </SwiperSlide>
         </Swiper>
       </div>

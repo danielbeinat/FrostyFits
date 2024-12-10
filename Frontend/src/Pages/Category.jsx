@@ -4,7 +4,6 @@ import "./scss/Category.scss";
 import { Item } from "../Components/Item/Item";
 import { Link } from "react-router-dom";
 import { Home, ChevronRight } from "lucide-react";
-// import { Newsletter } from "../Components/Main/Newsletter/Newsletter";
 
 export const Category = (props) => {
   const { Allproducts } = useContext(ShoopContext);
@@ -32,7 +31,6 @@ export const Category = (props) => {
     setSortedProducts(newSortedProducts);
   };
 
-  // Función para calcular el precio con descuento aplicado
   const calculatePrice = (product) => {
     return product.discount
       ? product.price - (product.price * product.discount) / 100
@@ -108,7 +106,6 @@ export const Category = (props) => {
         <div className="more">
           <button>Ver más</button>
         </div>
-        {/* <Newsletter /> */}
       </div>
     </>
   );

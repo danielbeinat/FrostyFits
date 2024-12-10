@@ -5,8 +5,6 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { MessageCircle, Send } from "lucide-react";
 import { API_URL } from "../../config/config.js";
 
-// import { Hand } from "lucide-react";
-
 export const ChatBox = () => {
   const [show, setShow] = useState(false);
   const [showButton, setShowButton] = useState(false);
@@ -104,55 +102,6 @@ export const ChatBox = () => {
                 </button>
               </div>
               <div className="flex bg-white flex-col p-5 py-4 pb-5 rounded-b-lg ">
-                {/* <form
-                  onSubmit={HandleSubmit}
-                  className="flex flex-col gap-6"
-                  action=""
-                >
-                  <fieldset className="flex flex-col gap-3">
-                    <label className="font-bold text-sm" htmlFor="Nombre">
-                      Nombre
-                    </label>
-                    <input
-                      className="rounded p-2 border-2 border-gray-300"
-                      type="text"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                    />
-                  </fieldset>
-                  <fieldset className="flex flex-col gap-3">
-                    <label className="font-bold text-sm" htmlFor="Email">
-                      Dirección de correo electrónico
-                    </label>
-                    <input
-                      className="rounded p-2 border-2 border-gray-300"
-                      type="text"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
-                  </fieldset>
-                  <fieldset className="flex flex-col gap-3">
-                    <label className="font-bold text-sm" htmlFor="mensaje">
-                      ¿Cómo podemos ayudar?
-                    </label>
-                    <textarea
-                      className="rounded p-2 border-2 border-gray-300 resize-none h-24 "
-                      name=""
-                      id=""
-                      value={message}
-                      onChange={(e) => setMessage(e.target.value)}
-                    ></textarea>
-                  </fieldset>
-                  <div className="flex justify-end bg-white rounded-b">
-                    <button
-                      type="submit"
-                      className="p-2 bg-gray-800 text-white rounded bg-gray-800"
-                    >
-                      Enviar
-                    </button>
-                  </div>
-                </form> */}
-
                 <form onSubmit={HandleSubmit} className="mt-4 space-y-4 ">
                   <div>
                     <label
@@ -168,7 +117,6 @@ export const ChatBox = () => {
                       placeholder="Tu nombre"
                       onChange={(e) => setName(e.target.value)}
                       required
-                      // {...register("name")}
                       className="mt-1 block text-sm w-full p-1 rounded-md border-2 border-[#E4E4E7] shadow-sm focus:border-gray-300 focus:ring focus:ring-gray-200 focus:ring-opacity-50"
                     />
                     {/* {errors.name && (
@@ -191,7 +139,6 @@ export const ChatBox = () => {
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="ejemplo@gmail.com"
                       required
-                      // {...register("email")}
                       className="mt-1 block text-sm w-full p-1 rounded-md border-2 border-[#E4E4E7] shadow-sm focus:border-gray-300 focus:ring focus:ring-gray-200 focus:ring-opacity-50"
                     />
                     {/* {errors.email && (
@@ -209,7 +156,6 @@ export const ChatBox = () => {
                     </label>
                     <textarea
                       id="message"
-                      // {...register("message")}
                       rows={4}
                       value={message}
                       required

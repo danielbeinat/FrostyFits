@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import { Breadcrumbs } from "../Components/breadcrumbs/Breadcrumbs";
 import { ProductDisplay } from "../Components/ProductDisplay/ProductDisplay";
 import { RelatedProducts } from "../Components/RelatedProducts/RelatedProducts";
-// import { Newsletter } from "../Components/Main/Newsletter/Newsletter";
 
 export const Product = () => {
   const { Allproducts } = useContext(ShoopContext);
@@ -28,7 +27,6 @@ export const Product = () => {
         <Breadcrumbs product={product} />
         <ProductDisplay product={product} />
         <RelatedProducts category={product.category} />
-        {/* <Newsletter /> */}
       </div>
     </>
   );

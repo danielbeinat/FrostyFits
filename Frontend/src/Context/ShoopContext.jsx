@@ -1,4 +1,3 @@
-//si el usuario no esta logueado no muestra la lista de deseos
 import { createContext, useState, useEffect } from "react";
 import { API_URL } from "../config/config.js";
 

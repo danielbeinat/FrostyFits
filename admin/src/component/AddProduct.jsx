@@ -1,168 +1,10 @@
-// import React, { useState } from "react";
-// import upload from "../assets/upload.svg";
-
-// export const AddProduct = () => {
-//   const [image, setImage] = useState(null);
-//   const [productDetail, setProductDetail] = useState({
-//     name: "",
-//     image: "",
-//     price: "",
-//     category: "women",
-//     type: "",
-//   });
-
-//   const handleImage = (e) => {
-//     setImage(e.target.files[0]);
-//   };
-
-//   const handleChange = (e) => {
-//     const { name, value } = e.target;
-//     setProductDetail((prevDetail) => ({ ...prevDetail, [name]: value }));
-//   };
-
-//   const addProduct = async (e) => {
-//     e.preventDefault();
-//     try {
-//       const formData = new FormData();
-//       formData.append("product", image);
-
-//       const uploadResponse = await fetch("http://localhost:3000/api/upload", {
-//         method: "POST",
-//         headers: {
-//           Accept: "application/json",
-//         },
-//         body: formData,
-//       });
-
-//       const uploadData = await uploadResponse.json();
-
-//       if (uploadData.success) {
-//         const updatedProduct = {
-//           ...productDetail,
-//           image: uploadData.image_url,
-//         };
-
-//         const addProductResponse = await fetch(
-//           "http://localhost:3000/api/products/add",
-//           {
-//             method: "POST",
-//             headers: {
-//               Accept: "application/json",
-//               "Content-Type": "application/json",
-//             },
-//             body: JSON.stringify(updatedProduct),
-//           }
-//         );
-
-//         const addProductData = await addProductResponse.json();
-
-//         if (addProductData.success) {
-//           console.log("Product added successfully");
-//         } else {
-//           console.error("Failed to add product");
-//         }
-//       } else {
-//         console.error("Failed to upload image");
-//       }
-//     } catch (error) {
-//       console.error("Error adding product:", error);
-//     }
-//   };
-
-//   return (
-//     <div className="mt-8 ml-10 w-auto">
-//       <form
-//         className="flex flex-col bg-white p-10 gap-5 w-[600px] shadow-lg"
-//         onSubmit={addProduct}
-//       >
-//         <div className="flex flex-col">
-//           <label className="text-sm text-gray-600">Product Title</label>
-//           <input
-//             className="border border-gray-700 p-2"
-//             type="text"
-//             name="name"
-//             value={productDetail.name}
-//             onChange={handleChange}
-//             placeholder="Product Title"
-//           />
-//         </div>
-
-//         <div className="flex flex-col">
-//           <label className="text-sm text-gray-600">Price</label>
-//           <input
-//             className="border border-gray-700 p-2 shadow-sm"
-//             type="text"
-//             placeholder="Price"
-//             name="price"
-//             value={productDetail.price}
-//             onChange={handleChange}
-//           />
-//         </div>
-//         <div className="flex flex-col">
-//           <label className="text-sm text-gray-600">Category</label>
-//           <select
-//             className="border w-[200px] border-gray-700 p-2 shadow-sm"
-//             name="category"
-//             value={productDetail.category}
-//             onChange={handleChange}
-//           >
-//             <option value="women">Women</option>
-//             <option value="men">Men</option>
-//             <option value="kid">Kid</option>
-//             <option value="shoes">Shoes</option>
-//           </select>
-//         </div>
-
-//         <div className="flex flex-col">
-//           <label className="text-sm text-gray-600">Type</label>
-//           <select
-//             className="border w-[200px] border-gray-700 p-2 shadow-sm"
-//             name="type"
-//             value={productDetail.type}
-//             onChange={handleChange}
-//           >
-//             <option value="" disabled>
-//               Select Type
-//             </option>
-//             <option value="Campera">Campera</option>
-//             <option value="Pantalon">Pantalón</option>
-//             <option value="Remera">Remera</option>
-//             <option value="Calzado">Calzado</option>
-//           </select>
-//         </div>
-
-//         <div className="flex flex-col w-[100px]">
-//           <label className="cursor-pointer" htmlFor="file-input">
-//             <img
-//               className="w-[70px] h-[70px] bg-gray-100 p-2 shadow-sm"
-//               src={image ? URL.createObjectURL(image) : upload}
-//               alt=""
-//             />
-//           </label>
-//           <input
-//             onChange={handleImage}
-//             type="file"
-//             id="file-input"
-//             name="image"
-//             hidden
-//           />
-//         </div>
-
-//         <button className="bg-black text-white w-[200px] p-2" type="submit">
-//           Add Product
-//         </button>
-//       </form>
-//     </div>
-//   );
-// };
-
 import React, { useState } from "react";
 import upload from "../assets/upload.svg";
 import { API_URL } from "../config/config.js";
 
 export const AddProduct = () => {
   const [image, setImage] = useState(null);
-  const [sizes, setSizes] = useState([]); // Opciones de talles dinámicos
+  const [sizes, setSizes] = useState([]);
   const [responseMessage, setResponseMessage] = useState("");
 
   const [productDetail, setProductDetail] = useState({
@@ -255,7 +97,7 @@ export const AddProduct = () => {
 
         if (addProductData.success) {
           console.log("Product added successfully");
-          setResponseMessage("Product added successfully!"); // Mensaje de éxito
+          setResponseMessage("Product added successfully!");
 
           setProductDetail({
             name: "",
@@ -268,7 +110,7 @@ export const AddProduct = () => {
           setImage(null);
         } else {
           console.error("Failed to add product");
-          setResponseMessage("Failed to add product."); // Mensaje de error
+          setResponseMessage("Failed to add product.");
         }
 
         setTimeout(() => {
@@ -276,7 +118,7 @@ export const AddProduct = () => {
         }, 3000);
       } else {
         console.error("Failed to upload image");
-        setResponseMessage("Failed to upload image."); // Mensaje de error
+        setResponseMessage("Failed to upload image.");
       }
     } catch (error) {
       console.error("Error adding product:", error);
@@ -316,7 +158,6 @@ export const AddProduct = () => {
           />
         </div>
 
-        {/* Otros campos */}
         <div className="flex flex-col">
           <label className="text-sm text-gray-600">Type</label>
           <select
