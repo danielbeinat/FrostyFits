@@ -8,6 +8,7 @@ export const Search = () => {
   const handleSearch = () => {
     if (searchQuery.trim() !== "") {
       navigate(`/search/${searchQuery}`);
+      setSearchQuery(""); // Limpiar el campo de búsqueda después de navegar
     }
   };
 
