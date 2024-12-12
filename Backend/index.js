@@ -27,7 +27,6 @@ const allowedOrigins = [
 // Configuración de CORS
 app.use(cors({
     origin: function (origin, callback) {
-        // Permitir solicitudes sin origen (por ejemplo, desde herramientas de desarrollo)
         if (!origin || allowedOrigins.indexOf(origin) !== -1) {
             callback(null, true);
         } else {
