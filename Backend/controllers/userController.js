@@ -9,6 +9,9 @@ export const addToCart = async (req, res) => {
 
 
 
+        // Obtener detalles del producto
+        // const productDetails = await Product.findById(itemId);
+        // console.log('Detalles del producto agregado:', productDetails); // Muestra los detalles del producto
 
         await User.findOneAndUpdate({ _id: req.user.id }, {
             cartData: userData.cartData
@@ -16,6 +19,8 @@ export const addToCart = async (req, res) => {
 
 
         res.send({ success: true, message: "Added to cart" });
+
+
     } catch (err) {
         res.status(500).json({ msg: err.message });
 
