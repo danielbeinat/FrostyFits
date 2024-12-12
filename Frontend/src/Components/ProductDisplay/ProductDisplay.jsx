@@ -14,26 +14,17 @@ export const ProductDisplay = (props) => {
   const { addToCart } = useContext(ShoopContext);
 
   const [quantity, setQuantity] = useState(1);
-  const [selectedSize, setSelectedSize] = useState(null);
+  const [selectedSize, setSelectedSize] = useState("");
 
-  // Definir tallas por tipo de producto
-  const sizesByType = {
-    Campera: ["S", "M", "L", "XL"],
-    Pantalon: ["M", "L", "XL", "XXL"],
-    Remera: ["S", "M", "L", "XL", "XXL"],
-    Calzado: ["38", "39", "40", "41", "42"],
-    Buzo: ["S", "M", "L", "XL"],
-    Camisa: ["xs", "s", "m", "l", "xl", "xxl"],
-    Bermuda: ["28", "30", "32", "34", "36"],
-    Chaleco: ["S", "M", "L", "XL"],
-    Gorro: null,
-  };
-
-  // Obtener las tallas basadas en el tipo de producto
-  const sizes = sizesByType[product.type] || [];
+  const sizes = product.sizes || []; // Asegúrate de que 'sizes' venga del producto
 
   const incrementQuantity = () => setQuantity((prev) => Math.min(prev + 1, 10));
   const decrementQuantity = () => setQuantity((prev) => Math.max(prev - 1, 1));
+
+  const handleAddToCart = () => {
+    addToCart(product._id, selectedSize, quantity);
+    toggleModal();
+  };
 
   return (
     <>
@@ -54,7 +45,7 @@ export const ProductDisplay = (props) => {
             </p>
           </div>
 
-          <div>
+          <div className="">
             <h2 className="text-sm font-semibold mb-2">SIZE:</h2>
             <div className="flex space-x-2">
               {sizes.map((size) => (
@@ -63,7 +54,7 @@ export const ProductDisplay = (props) => {
                   onClick={() => setSelectedSize(size)}
                   className={`px-3 py-2 border rounded-md transition-colors ${
                     selectedSize === size
-                      ? "bg-black text-white"
+                      ? "bg-black text-white border-black"
                       : "border-gray-300 hover:border-gray-400"
                   }`}
                 >
@@ -103,15 +94,15 @@ export const ProductDisplay = (props) => {
             <Link onClick={toggleModal}>
               <button
                 className="inline-flex justify-center md:w-[350px] w-[250px] px-4 py-3 text-sm  font-medium  text-black border borde-2  border-gray-500 rounded-md"
-                onClick={() => addToCart(product._id, selectedSize, quantity)} // Puedes pasar también el tamaño y la cantidad al carrito
+                onClick={handleAddToCart}
               >
                 Agregar al Carrito
               </button>
             </Link>
-            <Link to={"/cart"} onClick={toggleModal}>
+            <Link to={"/cart"}>
               <button
                 className="inline-flex justify-center md:w-[350px] w-[250px] px-4 py-3 text-sm font-medium text-white bg-black border border-transparent rounded-md"
-                onClick={() => addToCart(product._id, selectedSize, quantity)}
+                onClick={handleAddToCart}
               >
                 Comprar ahora
               </button>

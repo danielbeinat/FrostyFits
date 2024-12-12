@@ -15,6 +15,7 @@ export const ProductList = ({ products }) => {
               price={item.price}
               discount={item.discount}
               description={item.description}
+              // size={item.size}
             />
           ))}
         </div>
