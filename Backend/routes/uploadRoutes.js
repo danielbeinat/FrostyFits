@@ -5,7 +5,7 @@ import path from "path";
 const router = express.Router();
 
 // const API_URL = process.env.API_URL || "http://localhost:3000";
-const API_URL = "http://localhost:3000";
+const API_URL = "https://frostyfi.netlify.app";
 
 
 // Configuración de almacenamiento para multer
