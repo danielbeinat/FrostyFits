@@ -24,6 +24,7 @@ const allowedOrigins = [
     'https://frostyfits-admin.netlify.app',
     'http://localhost:3000',
     'http://localhost:5174', // Para tu frontend local
+    'http://localhost:5173',
 
 
 ];
