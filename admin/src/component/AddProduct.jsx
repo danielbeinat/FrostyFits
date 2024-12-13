@@ -214,7 +214,9 @@ export const AddProduct = () => {
         </div>
 
         <div className="flex flex-col">
-          <label className="text-sm text-gray-600">Sizes</label>
+          {productDetail.type !== "Gorro" && (
+            <label className="text-sm text-gray-600">Sizes</label>
+          )}
           <select
             className="border w-[200px] border-gray-700 p-2 shadow-sm"
             name="sizes"
