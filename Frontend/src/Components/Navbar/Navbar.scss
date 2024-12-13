@@ -6,13 +6,16 @@
 
 .container {
   background-color: black;
-  overflow: hidden;
+  // overflow: hidden;
+  width: 100%;
+  z-index: 100;
 
   .move {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 10px 50px;
+
     animation: mover 35s linear infinite;
 
     @keyframes mover {
@@ -24,22 +27,25 @@
       }
     }
 
-    > div {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      h1 {
-        color: white;
-        font-size: 13px;
-      }
+    // > div {
+    //   display: flex;
+    //   align-items: center;
+    //   justify-content: center;
+    //   gap: 10px;
+    //   h1 {
+    //     color: white;
+    //     font-size: 13px;
+    //   }
 
-      .icon {
-        color: white;
-      }
-    }
+    //   .icon {
+    //     color: white;
+    //   }
+    // }
 
     @media screen and (max-width: 767px) {
+      display: none;
+    }
+    @media screen and (max-width: 768px) {
       display: none;
     }
   }
@@ -50,7 +56,8 @@ header {
   align-items: center;
   justify-content: space-between;
   padding: 20px 30px 20px 30px;
-  overflow: hidden;
+  z-index: 1;
+  // overflow: hidden;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   background-color: white;
   // box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);

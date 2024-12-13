@@ -6,22 +6,35 @@ import {
   faExchangeAlt,
 } from "@fortawesome/free-solid-svg-icons";
 
+const topcards = [
+  {
+    icon: faTruck,
+    text: "¡ENVÍO GRATIS A PARTIR DE $80.000!",
+  },
+  {
+    icon: faCreditCard,
+    text: "¡3 CUOTAS SIN INTERÉS!",
+  },
+  {
+    icon: faExchangeAlt,
+    text: "CAMBIOS Y DEVOLUCIONES GRATIS",
+  },
+];
+
 export const TopBar = () => {
   return (
     <>
-      <div className="move">
-        <div className="send">
-          <FontAwesomeIcon icon={faTruck} className="icon" />
-          <h1>¡ENVÍO GRATIS A PARTIR DE $80.000!</h1>
-        </div>
-        <div className="credit">
-          <FontAwesomeIcon icon={faCreditCard} className="icon" />
-          <h1>¡3 CUOTAS SIN INTERÉS!</h1>
-        </div>
-        <div className="exchange">
-          <FontAwesomeIcon icon={faExchangeAlt} className="icon" />
-          <h1>CAMBIOS Y DEVOLUCIONES GRATIS</h1>
-        </div>
+      <div className="move font-parkinsans">
+        {topcards.map((card, index) => (
+          <div key={index} className="flex items-center justify-center gap-2">
+            <FontAwesomeIcon
+              className="text-white"
+              icon={card.icon}
+              // className="icon"
+            />
+            <h1 className="text-white text-[13px] text-sm">{card.text}</h1>
+          </div>
+        ))}
       </div>
     </>
   );
