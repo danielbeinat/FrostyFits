@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Item } from "../../Item/Item";
-import "./News.scss";
 import { API_URL } from "../../../config/config.js";
 
 export const News = () => {
@@ -23,9 +22,11 @@ export const News = () => {
   }, []);
   return (
     <>
-      <div className="news font-parkinsans">
-        <h1 className="text-center text-3xl">Novedades</h1>
-        <section className="products">
+      <div className="flex flex-col gap-6 mx-8 mt-5 font-parkinsans">
+        <h1 className="text-center text-4xl font-bold mb-12 text-gray-800">
+          Novedades
+        </h1>
+        <section className="grid grid-cols-1 md:grid-cols-2 justify-items-center lg:grid-cols-4  gap-10">
           {Allproducts.map((item) => (
             <Item
               key={item._id}

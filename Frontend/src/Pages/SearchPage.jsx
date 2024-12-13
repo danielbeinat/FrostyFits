@@ -12,7 +12,7 @@ export const SearchPage = () => {
   );
 
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 lg:py-8  font-parkinsans">
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 lg:py-8 font-parkinsans">
       <h2 className="md:text-start md:pb-8 mb-4 md:text-xl text-lg text-center py-4 font-bold">
         Resultados de búsqueda para: {searchQuery}
       </h2>

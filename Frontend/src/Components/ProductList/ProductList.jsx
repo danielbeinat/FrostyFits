@@ -1,9 +1,9 @@
 import { Item } from "../Item/Item";
 export const ProductList = ({ products }) => {
   return (
-    <div className="product-list  font-parkinsans">
+    <div className="product-list font-parkinsans">
       {products.length > 0 ? (
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-4 md:gap-8 font-parkinsans">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-4 md:gap-8  font-parkinsans">
           {products.map((item) => (
             <Item
               key={item._id}

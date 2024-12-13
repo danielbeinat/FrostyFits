@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Item } from "../../Item/Item";
-import "./Feature.scss";
 import { API_URL } from "../../../config/config.js";
 
 export const Feature = () => {
@@ -23,9 +22,11 @@ export const Feature = () => {
   }, []);
   return (
     <>
-      <div className="feature font-parkinsans">
-        <h1 className="text-center text-3xl">Tendencia</h1>
-        <section className="destacado">
+      <div className="flex flex-col gap-6 mx-8 my-[100px]  font-parkinsans">
+        <h1 className="text-center text-4xl font-bold mb-12 text-gray-800">
+          Tendencia
+        </h1>
+        <section className="grid grid-cols-1 md:grid-cols-2 justify-items-center lg:grid-cols-4  gap-10">
           {Trading.map((item) => (
             <Item
               key={item._id}
