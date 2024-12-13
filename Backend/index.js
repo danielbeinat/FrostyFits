@@ -22,7 +22,6 @@ db();
 const allowedOrigins = [
     'https://frostyfi.netlify.app',
     'https://frostyfits-admin.netlify.app'
-    // 'https://frostyfits-admin.onrender.com',
 ];
 
 // Configuración de CORS
