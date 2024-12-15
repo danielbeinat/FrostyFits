@@ -31,7 +31,7 @@ export const Pants = () => {
 
     // Filtrar los productos por tipo "Jean"
     newSortedProducts = newSortedProducts.filter(
-      (item) => item.type === "Jean"
+      (item) => item.type === "Pantalon"
     );
 
     setSortedProducts(newSortedProducts);
