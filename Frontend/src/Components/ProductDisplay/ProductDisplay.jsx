@@ -149,6 +149,12 @@ export const ProductDisplay = (props) => {
   const colors = ["#FF0000", "#00FF00", "#0000FF", "#FFFF00", "#FF00FF"]; // Example colors
 
   const handleAddToCart = () => {
+    // Si no hay cantidad en el carrito, agregar 1
+    if (!cart[product._id]) {
+      addToCart(product._id, selectedSize, 1, selectedColor);
+    }
+    onCartAdd?.();
+
     // No necesitamos agregar 1 más porque ya tenemos la cantidad en el carrito
     toggleModal();
   };
