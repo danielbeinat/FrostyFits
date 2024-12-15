@@ -213,7 +213,7 @@ export const AddProduct = () => {
           />
         </div>
 
-        <div className="flex flex-col">
+        {/* <div className="flex flex-col">
           {productDetail.type !== "Gorro" && (
             <label className="text-sm text-gray-600">Sizes</label>
           )}
@@ -239,6 +239,35 @@ export const AddProduct = () => {
               </option>
             ))}
           </select>
+        </div> */}
+
+        <div className="flex flex-col">
+          {productDetail.type !== "Gorro" && (
+            <>
+              <label className="text-sm text-gray-600">Sizes</label>
+              <select
+                className="border w-[200px] border-gray-700 p-2 shadow-sm"
+                name="sizes"
+                multiple
+                value={productDetail.sizes}
+                onChange={(e) => {
+                  const selectedSizes = Array.from(
+                    e.target.selectedOptions
+                  ).map((option) => option.value);
+                  setProductDetail((prevDetail) => ({
+                    ...prevDetail,
+                    sizes: selectedSizes,
+                  }));
+                }}
+              >
+                {sizes.map((size) => (
+                  <option key={size} value={size}>
+                    {size}
+                  </option>
+                ))}
+              </select>
+            </>
+          )}
         </div>
 
         <button className="bg-black text-white w-[200px] p-2" type="submit">
