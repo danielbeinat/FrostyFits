@@ -1,12 +1,5 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 .container {
   background-color: black;
-  // overflow: hidden;
   width: 100%;
   z-index: 100;
 
@@ -82,7 +75,7 @@ header {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 40px;
+      gap: 20px;
       li {
         list-style: none;
         .a {

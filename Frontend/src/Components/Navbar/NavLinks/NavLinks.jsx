@@ -1,59 +1,36 @@
-// import { NavLink } from "react-router-dom";
-
-// const link = [
-//   { name: "Inicio", to: "/" },
-//   { name: "Hombre", to: "/men" },
-//   { name: "Mujer", to: "/women" },
-//   { name: "Chicos", to: "/kid" },
-//   { name: "Calzado", to: "/shoes" },
-// ];
-// export const NavLinks = ({ closeMenu }) => {
-//   return (
-//     <>
-//       {link.map((item) => (
-//         <li key={item.name}>
-//           <NavLink
-//             className={({ isActive }) => (isActive ? "active-link" : null)}
-//             to={item.to}
-//             onClick={() => {
-//               closeMenu();
-//               window.scrollTo({ top: 0, behavior: "smooth" });
-//             }}
-//           >
-//             {item.name}
-//           </NavLink>
-//         </li>
-//       ))}
-//     </>
-//   );
-// };
 import { NavLink } from "react-router-dom";
 
-const link = [
+const links = [
   { name: "Inicio", to: "/" },
   { name: "Hombre", to: "/men" },
   { name: "Mujer", to: "/women" },
   { name: "Chicos", to: "/kid" },
   { name: "Calzado", to: "/shoes" },
-  { name: "Favoritos", to: "/login", responsive: true }, // Nuevo enlace
-  // { name: "Login", to: "/login", responsive: true }, // Nuevo enlace
+  { name: "Favoritos", to: "/login", responsive: true },
 ];
 
 export const NavLinks = ({ closeMenu }) => {
   return (
     <>
-      {link.map((item) => (
+      {links.map((item) => (
         <li
           key={item.name}
-          className={item.responsive ? "responsive-link" : ""} // Clase para los links responsive
+          className={`${item.responsive ? "md:hidden" : "relative"}`}
         >
           <NavLink
-            className={({ isActive }) => (isActive ? "active-link" : null)}
             to={item.to}
             onClick={() => {
               closeMenu();
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
+            className={({ isActive }) =>
+              `block px-3 py-2 text-sm font-medium transition-all duration-200 rounded-lg
+              ${
+                isActive
+                  ? "text-gray-800 bg-gray-200"
+                  : "text-gray-600 hover:text-gray-800 hover:bg-gray-300"
+              }`
+            }
           >
             {item.name}
           </NavLink>

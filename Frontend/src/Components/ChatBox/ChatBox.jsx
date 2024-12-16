@@ -1,36 +1,29 @@
-import { useState, useEffect } from "react";
 import { BsChatRightFill } from "react-icons/bs";
-import "./ChatBox.css";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { MessageCircle, Send } from "lucide-react";
 import { API_URL } from "../../config/config.js";
+import { useState } from "react";
+import { X, Send, User, Mail, MessageSquare } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export const ChatBox = () => {
-  const [show, setShow] = useState(false);
-  const [showButton, setShowButton] = useState(false);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-  const [responseMessage, setResponseMessage] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [notification, setNotification] = useState(null);
 
-  useEffect(() => {
-    let timeout;
-    if (!show) {
-      timeout = setTimeout(() => {
-        setShowButton(true);
-      }, 500);
-    } else {
-      setShowButton(false);
-    }
-    return () => clearTimeout(timeout);
-  }, [show]);
+  const showNotification = (text, type = "info") => {
+    setNotification({ text, type });
+    setTimeout(() => setNotification(null), 5000);
+  };
 
-  const HandleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const { name, email, message } = formData;
 
     if (!name || !email || !message) {
-      setResponseMessage("Por favor, completa todos los campos.");
-      setTimeout(() => setResponseMessage(""), 5000);
+      showNotification("Por favor, completa todos los campos.", "error");
       return;
     }
 
@@ -39,157 +32,138 @@ export const ChatBox = () => {
         `${API_URL}/api/subscribers/send-contact-email`,
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ name, email, message }),
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
         }
       );
 
-      const data = await response.json(); // Asegúrate de usar await aquí.
-
       if (response.ok) {
-        setResponseMessage(data.message);
+        showNotification("¡Mensaje enviado con éxito!", "success");
+        setFormData({ name: "", email: "", message: "" });
       } else {
-        setResponseMessage("Error al enviar el mensaje. Inténtalo de nuevo.");
+        throw new Error("Error al enviar el mensaje");
       }
-
-      // Limpiar los campos del formulario
-      setName("");
-      setEmail("");
-      setMessage("");
-      setTimeout(() => setResponseMessage(""), 5000);
     } catch (error) {
-      console.error("Error en el envío del correo:", error);
-      setResponseMessage("Error al enviar el mensaje. Inténtalo de nuevo.");
-      setTimeout(() => setResponseMessage(""), 5000);
+      showNotification(
+        "Error al enviar el mensaje. Inténtalo de nuevo.",
+        "error"
+      );
     }
+  };
+
+  const handleChange = (e) => {
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
   };
 
   return (
     <>
-      {showButton && (
-        <div
-          className="fixed flex items-center z-40 justify-center p-5 lg:bottom-5 bottom-4 right-4 lg:right-5 bg-black rounded-b-full rounded-tl-full rounded-tr-lg cursor-pointer shadow-lg"
-          onClick={() => setShow(!show)}
-        >
-          <BsChatRightFill className="w-6 h-6 text-white" />
-        </div>
-      )}
-      <TransitionGroup>
-        {show && (
-          <CSSTransition classNames="chat-box " timeout={300} unmountOnExit>
-            <div className="fixed font-parkinsans lg:bottom-5 shadow-lg lg:right-5 z-50 lg:w-96 lg:h-auto bottom-0 w-full h-full right-0  rounded-lg ">
-              <div className="flex items-center rounded-t-lg p-3 justify-between bg-black">
-                <h1 className="text-white text-sm font-bold text-center">
-                  Dejar un mensaje
-                </h1>
-                <button onClick={() => setShow(!show)}>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-6 h-6 text-white"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M6 18 18 6M6 6l12 12"
-                    />
-                  </svg>
-                </button>
-              </div>
-              <div className="flex bg-white flex-col p-5 py-4 pb-5 rounded-b-lg ">
-                <form onSubmit={HandleSubmit} className="mt-4 space-y-4 ">
-                  <div>
-                    <label
-                      htmlFor="name"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      <span className="text-red-600 pr-[2px]">*</span>Nombre
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      value={name}
-                      placeholder="Tu nombre"
-                      onChange={(e) => setName(e.target.value)}
-                      required
-                      className="mt-1 block text-sm w-full p-1 rounded-md border-2 border-[#E4E4E7] shadow-sm focus:border-gray-300 focus:ring focus:ring-gray-200 focus:ring-opacity-50"
-                    />
-                    {/* {errors.name && (
-                      <p className="mt-1 text-sm text-red-600">
-                        {errors.name.message}
-                      </p>
-                    )} */}
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="email"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      <span className="text-red-600 pr-[2px]">*</span>Email
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="ejemplo@gmail.com"
-                      required
-                      className="mt-1 block text-sm w-full p-1 rounded-md border-2 border-[#E4E4E7] shadow-sm focus:border-gray-300 focus:ring focus:ring-gray-200 focus:ring-opacity-50"
-                    />
-                    {/* {errors.email && (
-                      <p className="mt-1 text-sm text-red-600">
-                        {errors.email.message}
-                      </p>
-                    )} */}
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="message"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      ¿Cómo podemos ayudarte?
-                    </label>
-                    <textarea
-                      id="message"
-                      rows={4}
-                      value={message}
-                      required
-                      onChange={(e) => setMessage(e.target.value)}
-                      placeholder="Tu mensaje"
-                      className="mt-1 block text-sm p-1 w-full rounded-md border-2 border-[#E4E4E7] shadow-sm "
-                    ></textarea>
-                    {/* {errors.message && (
-                      <p className="mt-1 text-sm text-red-600">
-                        {errors.message.message}
-                      </p>
-                    )} */}
-                  </div>
-                  <button
-                    type="submit"
-                    className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-black border border-transparent rounded-md"
-                  >
-                    <Send className="h-4 w-4 mr-2" />
-                    Enviar mensaje
-                  </button>
-                </form>
-              </div>
-            </div>
-          </CSSTransition>
+      <AnimatePresence>
+        {!isOpen && (
+          <motion.button
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0, opacity: 0 }}
+            onClick={() => setIsOpen(true)}
+            className="fixed z-50 bottom-6 right-6 p-5 bg-black rounded-full shadow-lg shadow-white/30 hover:shadow-xl transform hover:scale-110 transition-all duration-300"
+          >
+            <BsChatRightFill className="w-6 h-6 text-white" />
+          </motion.button>
         )}
-      </TransitionGroup>
 
-      <div>
-        {responseMessage && (
-          <div className="fixed z-50 bottom-5 right-5 bg-green-500 p-3 rounded text-white">
-            {responseMessage}
-          </div>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            className="fixed z-50 font-parkinsans  bottom-6 right-6 w-96 max-w-[calc(100vw-2rem)] bg-white rounded-2xl shadow-2xl"
+          >
+            <div className="flex items-center justify-between p-4 bg-black rounded-t-2xl">
+              <h2 className="text-white font-medium">Chat con nosotros</h2>
+              <button
+                onClick={() => setIsOpen(false)}
+                className="text-white/80 hover:text-white transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <form onSubmit={handleSubmit} className="p-6 space-y-4">
+              <div className="space-y-1">
+                <label className="flex items-center text-sm font-medium text-gray-700">
+                  <User className="w-4 h-4 mr-2" />
+                  Nombre
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2 rounded-lg bg-gray-50 border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all duration-200"
+                  placeholder="Tu nombre"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="flex items-center text-sm font-medium text-gray-700">
+                  <Mail className="w-4 h-4 mr-2" />
+                  Email
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2 rounded-lg bg-gray-50 border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all duration-200"
+                  placeholder="tu@email.com"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="flex items-center text-sm font-medium text-gray-700">
+                  <MessageSquare className="w-4 h-4 mr-2" />
+                  Mensaje
+                </label>
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  rows={4}
+                  className="w-full px-4 py-2 rounded-lg bg-gray-50 border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all duration-200 resize-none"
+                  placeholder="¿En qué podemos ayudarte?"
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="w-full px-4 py-2 bg-black text-white rounded-lg font-medium hover:from-indigo-600 hover:to-purple-700 focus:ring-2 focus:ring-indigo-200 transition-all duration-200 flex items-center justify-center space-x-2"
+              >
+                <Send className="w-4 h-4" />
+                <span>Enviar mensaje</span>
+              </button>
+            </form>
+          </motion.div>
         )}
-      </div>
+      </AnimatePresence>
+
+      {notification && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 20 }}
+          className={`fixed z-50 bottom-6 left-6 p-4 rounded-lg shadow-lg ${
+            notification.type === "success"
+              ? "bg-green-500"
+              : notification.type === "error"
+              ? "bg-red-500"
+              : "bg-blue-500"
+          }`}
+        >
+          <p className="text-white">{notification.text}</p>
+        </motion.div>
+      )}
     </>
   );
 };

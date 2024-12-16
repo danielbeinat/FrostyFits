@@ -27,11 +27,7 @@ export const TopBar = () => {
       <div className="move font-parkinsans">
         {topcards.map((card, index) => (
           <div key={index} className="flex items-center justify-center gap-2">
-            <FontAwesomeIcon
-              className="text-white"
-              icon={card.icon}
-              // className="icon"
-            />
+            <FontAwesomeIcon className="text-white" icon={card.icon} />
             <h1 className="text-white text-[13px] text-sm">{card.text}</h1>
           </div>
         ))}

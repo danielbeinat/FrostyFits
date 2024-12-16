@@ -1,7 +1,6 @@
 import "./Navbar.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
-
 import Logo from "../../assets/Logo.webp";
 import { useState } from "react";
 import { CartModal } from "../CartModal/CartModal";

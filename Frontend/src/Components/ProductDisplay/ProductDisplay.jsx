@@ -15,17 +15,16 @@ export const ProductDisplay = (props) => {
   const { addToCart, removeFromCart, cart } = useContext(ShoopContext);
 
   const [selectedSize, setSelectedSize] = useState("");
-  const [selectedColor, setSelectedColor] = useState("");
+  // const [selectedColor, setSelectedColor] = useState("");
 
   const sizes = product.sizes || [];
-  const colors = ["#FF0000", "#00FF00", "#0000FF", "#FFFF00", "#FF00FF"]; // Example colors
+  // const colors = ["#FF0000", "#00FF00", "#0000FF", "#FFFF00", "#FF00FF"]; //colors
 
   const handleAddToCart = () => {
     // Si no hay cantidad en el carrito, agregar 1
     if (!cart[product._id]) {
       addToCart(product._id, selectedSize, 1, selectedColor);
     }
-    onCartAdd?.();
 
     // No necesitamos agregar 1 más porque ya tenemos la cantidad en el carrito
     toggleModal();
@@ -48,27 +47,6 @@ export const ProductDisplay = (props) => {
               3 cuotas sin interés de $2.310,00
             </p>
           </div>
-
-          {/* {product.type !== "Gorro" && (
-            <div className="">
-              <h2 className="text-sm font-semibold mb-2">SIZE:</h2>
-              <div className="flex space-x-2">
-                {sizes.map((size) => (
-                  <button
-                    key={size}
-                    onClick={() => setSelectedSize(size)}
-                    className={`px-3 py-2 border rounded-md transition-colors ${
-                      selectedSize === size
-                        ? "bg-black text-white border-black"
-                        : "border-gray-300 hover:border-gray-400"
-                    }`}
-                  >
-                    {size}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )} */}
 
           {product.type !== "Gorro" && (
             <div className="space-y-3">
@@ -134,8 +112,6 @@ export const ProductDisplay = (props) => {
           </div>
           <div className="flex flex-col gap-3 w-full mt-2">
             <div className="flex items-center gap-4">
-              {/* Cart Quantity Controls */}
-
               <Link onClick={toggleModal}>
                 <button
                   className="inline-flex justify-center md:w-[350px] w-[250px] px-4 py-3 text-sm font-medium text-black border border-2 border-gray-500 rounded-md hover:bg-gray-100 transition-colors"
