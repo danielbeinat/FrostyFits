@@ -23,7 +23,8 @@ export const ProductDisplay = (props) => {
   const handleAddToCart = () => {
     // Si no hay cantidad en el carrito, agregar 1
     if (!cart[product._id]) {
-      addToCart(product._id, selectedSize, 1, selectedColor);
+      addToCart(product._id, selectedSize, 1);
+      // addToCart(product._id, selectedSize, 1, selectedColor);
     }
 
     // No necesitamos agregar 1 más porque ya tenemos la cantidad en el carrito
