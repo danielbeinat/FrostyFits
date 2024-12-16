@@ -98,7 +98,7 @@ export const Item = (props) => {
               </div>
               <div className="ml-3">
                 <p className="text-sm font-medium text-red-800">
-                  Para poder agregar a tu carrito debes iniciar sesión
+                  Para poder agregar a favoritos debes iniciar sesión
                 </p>
               </div>
               <div className="ml-auto pl-3">
