@@ -20,7 +20,7 @@ db();
 
 
 const allowedOrigins = [
-    'https://frostyfi.netlify.app',
+    'https://frostyfits.netlify.app',
     'https://frostyfits-admin.netlify.app',
     'http://localhost:3000',
     'http://localhost:5174', // Para tu frontend local
