@@ -1,5 +1,16 @@
 import { Item } from "../Item/Item";
+
 export const ProductList = ({ products }) => {
+  // Safety check to prevent map errors
+  if (!Array.isArray(products)) {
+    console.error("ProductList: products is not an array:", products);
+    return (
+      <div className="product-list font-parkinsans">
+        <p>No se encontraron productos.</p>
+      </div>
+    );
+  }
+
   return (
     <div className="product-list font-parkinsans">
       {products.length > 0 ? (

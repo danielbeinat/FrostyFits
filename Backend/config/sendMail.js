@@ -3,7 +3,7 @@ import transporter from "./nodemailer.js";
 const sendEmail = async (to, subject, text, html) => {
     try {
         const info = await transporter.sendMail({
-            from: process.env.EMAIL_USE, // Remitente
+            from: process.env.EMAIL_USER, // Remitente
             to: to,                        // Receptor
             subject: subject,              // Asunto
             text: text,                    // Texto del correo

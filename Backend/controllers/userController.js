@@ -5,8 +5,10 @@ export const addToCart = async (req, res) => {
     try {
 
         const userData = await User.findOne({ _id: req.user.id });
-        userData.cartData[req.body.itemId] = (userData.cartData[req.body.itemId] || 0) + 1;
+        const { itemId, quantity = 1 } = req.body;
 
+        // Usar la cantidad enviada desde el frontend o default 1
+        userData.cartData[itemId] = (userData.cartData[itemId] || 0) + quantity;
 
 
         // Obtener detalles del producto
@@ -18,7 +20,7 @@ export const addToCart = async (req, res) => {
         });
 
 
-        res.send({ success: true, message: "Added to cart" });
+        res.send({ success: true, message: "Added to cart", cart: userData.cartData });
 
 
     } catch (err) {
@@ -37,11 +39,20 @@ export const removeFromCart = async (req, res) => {
 
     try {
         const userData = await User.findOne({ _id: req.user.id });
-        userData.cartData[req.body.itemId] = (userData.cartData[req.body.itemId] || 0) - 1;
+        const { itemId, quantity = 1 } = req.body;
+
+        // Usar la cantidad enviada desde el frontend o default 1
+        userData.cartData[itemId] = Math.max(0, (userData.cartData[itemId] || 0) - quantity);
+
+        // Si la cantidad es 0, eliminar el item del carrito
+        if (userData.cartData[itemId] === 0) {
+            delete userData.cartData[itemId];
+        }
+
         await User.findOneAndUpdate({ _id: req.user.id }, {
             cartData: userData.cartData
         });
-        res.send({ success: true, message: "Removed from cart" });
+        res.send({ success: true, message: "Removed from cart", cart: userData.cartData });
     } catch (err) {
         res.status(500).json({ msg: err.message });
 

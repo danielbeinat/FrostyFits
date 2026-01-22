@@ -1,15 +1,16 @@
 import { Link } from "react-router-dom";
-import { Heart } from "lucide-react";
+import { Heart, X } from "lucide-react";
 import { useState, useContext } from "react";
 import { AuthContext } from "../../Context/AuthContext"; // Asegúrate de tener un contexto de autenticación
 // import { motion } from "framer-motion";
-import { XMarkIcon } from "@heroicons/react/24/solid";
 import { motion, AnimatePresence } from "framer-motion";
+import { formatPrice } from "../../utils/currency";
 
 export const Item = (props) => {
-  const discountedPrice = props.discount
-    ? props.price - (props.price * props.discount) / 100
-    : props.price;
+  const price = Number(props.price) || 0;
+  const discountPercent = Number(props.discount) || 0;
+  const discountedPrice =
+    discountPercent > 0 ? price - (price * discountPercent) / 100 : price;
 
   const [showMessage, setShowMessage] = useState(false);
 
@@ -45,11 +46,11 @@ export const Item = (props) => {
           </p>
           <div className="flex items-center">
             <p className="text-lg font-semibold text-black cursor-auto my-3">
-              ${discountedPrice.toLocaleString()}
+              {formatPrice(discountedPrice)}
             </p>
-            {props.discount && (
+            {discountPercent > 0 && (
               <del className="text-sm text-gray-600 cursor-auto ml-2">
-                ${props.price.toLocaleString()}
+                {formatPrice(price)}
               </del>
             )}
             <div className="ml-auto">
@@ -59,13 +60,13 @@ export const Item = (props) => {
             </div>
           </div>
 
-          {props.discount && (
+          {discountPercent > 0 && (
             <div
               className="absolute top-0 right-5 bg-black rounded-b-xl px-1 py-3"
-              aria-label={`Oferta ${props.discount}% de descuento`}
+              aria-label={`Oferta ${discountPercent}% de descuento`}
             >
               <h1 className="text-white text-sm font-bold">
-                {props.discount}%
+                {discountPercent}%
               </h1>
             </div>
           )}
@@ -108,7 +109,7 @@ export const Item = (props) => {
                     className="inline-flex rounded-md p-1.5 text-red-500 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-red-50 focus:ring-red-600"
                   >
                     <span className="sr-only">Dismiss</span>
-                    <XMarkIcon className="h-5 w-5" aria-hidden="true" />
+                    <X className="h-5 w-5" aria-hidden="true" />
                   </button>
                 </div>
               </div>

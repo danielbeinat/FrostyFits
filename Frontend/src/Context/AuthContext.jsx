@@ -13,36 +13,34 @@ export const AuthProvider = (props) => {
   useEffect(() => {
     const token = localStorage.getItem("auth-token");
     if (token) {
-      // Lógica para verificar el token, por ejemplo, llamando a un endpoint de validación
-      fetch(`${API_URL}/api/users/validateToken`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "auth-token": token,
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.isValid) {
-            setIsAuthenticated(true);
-            setUser(data.user); // Datos del usuario opcionales
-          } else {
-            setIsAuthenticated(false);
-            setUser(null);
-          }
-        })
-        .catch((error) => {
-          console.error("Error validating token:", error);
+      try {
+        // Simple JWT validation without API call
+        const payload = JSON.parse(atob(token.split(".")[1]));
+        const currentTime = Date.now() / 1000;
+
+        if (payload.exp > currentTime) {
+          setIsAuthenticated(true);
+          // Optionally decode user info from token if available
+          setUser({ id: payload.userId });
+        } else {
+          // Token expired
+          localStorage.removeItem("auth-token");
           setIsAuthenticated(false);
           setUser(null);
-        });
+        }
+      } catch (error) {
+        console.error("Invalid token format:", error);
+        localStorage.removeItem("auth-token");
+        setIsAuthenticated(false);
+        setUser(null);
+      }
     }
   }, []);
 
   // Función para iniciar sesión
   const login = async (email, password) => {
     try {
-      const response = await fetch(`${API_URL}/api/users/login`, {
+      const response = await fetch(`${API_URL}/api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -1,5 +1,11 @@
-import { createContext, useState, useEffect } from "react";
-import { API_URL } from "../config/config.js";
+import {
+  createContext,
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+} from "react";
+import { TokenManager, InputSanitizer, SecureAPI } from "../utils/auth.js";
 
 export const ShoopContext = createContext(null);
 
@@ -10,82 +16,152 @@ const getDefaultCart = () => {
 export const ShoopProvider = (props) => {
   const [Allproducts, setAllproducts] = useState([]);
   const [cart, setcart] = useState(getDefaultCart());
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const FetchProduct = async () => {
+  // Initialize secure utilities
+  const tokenManager = useMemo(() => new TokenManager(), []);
+  const secureAPI = useMemo(() => new SecureAPI(tokenManager), [tokenManager]);
+
+  const FetchProduct = useCallback(async () => {
     try {
-      const response = await fetch(`${API_URL}/api/products/allproducts`);
+      setLoading(true);
+      setError(null);
+
+      const response = await secureAPI.get("/api/products/allproducts");
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
       const data = await response.json();
-      setAllproducts(data);
-      console.log(data);
-      if (localStorage.getItem("auth-token")) {
-        fetch(`${API_URL}/api/users/getCart`, {
-          method: "GET", // Cambia POST a GET
-          headers: {
-            Accept: "application/json",
-            "auth-token": `${localStorage.getItem("auth-token")}`,
-            "Content-Type": "application/json",
-          },
-        })
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error("Network response was not ok");
-            }
-            return response.json();
-          })
-          .then((data) => setcart(data))
-          .catch((error) => console.error("Error fetching cart:", error));
+
+      if (data.success && Array.isArray(data.products)) {
+        setAllproducts(data.products);
+      } else {
+        console.error("Invalid products data:", data);
+        setAllproducts([]);
+      }
+
+      // Fetch user cart if authenticated
+      if (tokenManager.isTokenValid()) {
+        try {
+          const cartResponse = await secureAPI.get("/api/users/getCart");
+
+          if (cartResponse.ok) {
+            const cartData = await cartResponse.json();
+            setcart(cartData);
+          }
+        } catch (cartError) {
+          // Non-critical error, don't fail the entire operation
+          console.warn("Could not fetch user cart:", cartError);
+        }
       }
     } catch (err) {
-      console.log(err);
+      setError(err.message);
+      // Implement proper error reporting here
+    } finally {
+      setLoading(false);
     }
-  };
+  }, [secureAPI, tokenManager]);
 
   useEffect(() => {
     FetchProduct();
-  }, []);
+  }, [FetchProduct]);
 
-  const addToCart = (itemId) => {
-    setcart((prev) => ({ ...prev, [itemId]: (prev[itemId] || 0) + 1 }));
-    if (localStorage.getItem("auth-token")) {
-      fetch(`${API_URL}/api/users/addToCart`, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "auth-token": `${localStorage.getItem("auth-token")}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ itemId }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
+  const addToCart = useCallback(
+    async (itemId, size = null, quantity = 1) => {
+      // Check if user is authenticated
+      if (!tokenManager.isTokenValid()) {
+        throw new Error("Please login to add items to cart");
+      }
+
+      // Sanitize inputs
+      const sanitizedItemId = InputSanitizer.sanitizeString(itemId);
+      const sanitizedSize = size ? InputSanitizer.sanitizeString(size) : null;
+      const sanitizedQuantity = InputSanitizer.sanitizeNumber(quantity, 1, 10);
+
+      // Validation
+      if (!sanitizedItemId || sanitizedQuantity < 1) {
+        throw new Error("Invalid item ID or quantity");
+      }
+
+      // Optimistic update
+      const newCart = {
+        ...cart,
+        [sanitizedItemId]: (cart[sanitizedItemId] || 0) + sanitizedQuantity,
+      };
+      setcart(newCart);
+
+      try {
+        const response = await secureAPI.post("/api/users/addtocart", {
+          itemId: sanitizedItemId,
+          size: sanitizedSize,
+          quantity: sanitizedQuantity,
         });
-    }
-    console.log("Cart after adding:", cart);
-  };
 
-  const removeFromCart = (itemId) => {
-    setcart((prev) => ({ ...prev, [itemId]: (prev[itemId] || 0) - 1 }));
+        if (!response.ok) {
+          if (response.status === 401) {
+            throw new Error("Please login to add items to cart");
+          }
+          throw new Error(`Failed to add to cart: ${response.status}`);
+        }
 
-    if (localStorage.getItem("auth-token")) {
-      fetch(`${API_URL}/api/users/removeFromCart`, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "auth-token": `${localStorage.getItem("auth-token")}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ itemId }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
+        const data = await response.json();
+        // Optionally update cart with server response
+        if (data.cart) {
+          setcart(data.cart);
+        }
+      } catch (error) {
+        // Rollback on error
+        setcart(cart);
+        throw error;
+      }
+    },
+    [cart, secureAPI],
+  );
+
+  const removeFromCart = useCallback(
+    async (itemId, quantity = 1) => {
+      const sanitizedItemId = InputSanitizer.sanitizeString(itemId);
+      const sanitizedQuantity = InputSanitizer.sanitizeNumber(quantity, 1, 10);
+
+      if (!sanitizedItemId || sanitizedQuantity < 1) {
+        throw new Error("Invalid item ID or quantity");
+      }
+
+      const currentQuantity = cart[sanitizedItemId] || 0;
+      if (currentQuantity === 0) return;
+
+      // Optimistic update
+      const newQuantity = Math.max(0, currentQuantity - sanitizedQuantity);
+      const newCart = { ...cart, [sanitizedItemId]: newQuantity };
+      setcart(newCart);
+
+      try {
+        const response = await secureAPI.post("/api/users/removefromcart", {
+          itemId: sanitizedItemId,
+          quantity: sanitizedQuantity,
         });
-    }
-  };
 
-  const getTotalCartAmount = () => {
+        if (!response.ok) {
+          throw new Error(`Failed to remove from cart: ${response.status}`);
+        }
+
+        const data = await response.json();
+        if (data.cart) {
+          setcart(data.cart);
+        }
+      } catch (error) {
+        // Rollback on error
+        setcart(cart);
+        throw error;
+      }
+    },
+    [cart, secureAPI],
+  );
+
+  const getTotalCartAmount = useCallback(() => {
     let total = 0;
     for (const item in cart) {
       if (cart[item] > 0) {
@@ -96,9 +172,9 @@ export const ShoopProvider = (props) => {
       }
     }
     return total;
-  };
+  }, [cart, Allproducts]);
 
-  const getTotalcartItems = () => {
+  const getTotalcartItems = useCallback(() => {
     let total = 0;
     for (const item in cart) {
       if (cart[item] > 0) {
@@ -106,17 +182,43 @@ export const ShoopProvider = (props) => {
       }
     }
     return total;
-  };
+  }, [cart]);
 
-  const contextValue = {
-    Allproducts,
-    cart,
-    setcart,
-    addToCart,
-    removeFromCart,
-    getTotalCartAmount,
-    getTotalcartItems,
-  };
+  const clearCart = useCallback(() => {
+    setcart(getDefaultCart());
+  }, []);
+
+  const contextValue = useMemo(
+    () => ({
+      Allproducts,
+      cart,
+      setcart,
+      loading,
+      error,
+      addToCart,
+      removeFromCart,
+      getTotalCartAmount,
+      getTotalcartItems,
+      clearCart,
+      refetch: FetchProduct,
+      tokenManager,
+      secureAPI,
+    }),
+    [
+      Allproducts,
+      cart,
+      loading,
+      error,
+      addToCart,
+      removeFromCart,
+      getTotalCartAmount,
+      getTotalcartItems,
+      clearCart,
+      FetchProduct,
+      tokenManager,
+      secureAPI,
+    ],
+  );
 
   return (
     <ShoopContext.Provider value={contextValue}>

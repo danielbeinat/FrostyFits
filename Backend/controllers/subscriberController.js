@@ -1,4 +1,4 @@
-import Subscriber from "../models/subscriberModel.js";
+import Subscriber from "../models/SubscriberModel.js";
 import sendEmail from '../config/sendMail.js';
 import nodemailer from "nodemailer";
 

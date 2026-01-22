@@ -3,20 +3,25 @@ import {
     addProduct,
     removeProduct,
     updateProduct,
-    getAllProducts,
-    newCollection,
-    trending,
-
+    allproducts,
+    newcollection,
+    trendingproducts,
+    getProductById,
+    getProductsByCategory,
+    searchProducts
 } from "../controllers/productController.js";
-
+import { validate, schemas } from "../utils/validation.js";
 
 const router = express.Router();
 
-router.post("/add", addProduct);
+router.post("/add", validate(schemas.product), addProduct);
 router.post("/removeproduct", removeProduct);
-router.post("/update", updateProduct);
-router.get("/allproducts", getAllProducts);
-router.get("/newcollection", newCollection);
-router.get("/trending", trending);
+router.post("/update", validate(schemas.productUpdate), updateProduct);
+router.get("/allproducts", allproducts);
+router.get("/newcollection", newcollection);
+router.get("/trending", trendingproducts);
+router.get("/category/:category", getProductsByCategory);
+router.get("/search", searchProducts);
+router.get("/:id", getProductById);
 
 export default router;

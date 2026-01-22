@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 
 import { Dialog, Transition } from "@headlessui/react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
+import { X } from "lucide-react";
 import { ShoopContext } from "../../Context/ShoopContext";
 import { useContext } from "react";
 
@@ -10,6 +10,12 @@ import { Link } from "react-router-dom";
 export const CartModal = ({ open, setOpen }) => {
   const { Allproducts, cart, removeFromCart, getTotalCartAmount } =
     useContext(ShoopContext);
+
+  // Safety check to prevent map errors
+  if (!Array.isArray(Allproducts)) {
+    console.error("Allproducts is not an array:", Allproducts);
+    return null;
+  }
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -53,7 +59,7 @@ export const CartModal = ({ open, setOpen }) => {
                           >
                             <span className="absolute -inset-0.5" />
                             <span className="sr-only">Close panel</span>
-                            <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                            <X className="h-6 w-6" aria-hidden="true" />
                           </button>
                         </div>
                       </div>

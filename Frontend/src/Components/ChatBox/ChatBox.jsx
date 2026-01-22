@@ -1,168 +1,236 @@
-import { BsChatRightFill } from "react-icons/bs";
-import { API_URL } from "../../config/config.js";
-import { useState } from "react";
-import { X, Send, User, Mail, MessageSquare } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import "./ChatBox.css";
 
 export const ChatBox = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-  const [notification, setNotification] = useState(null);
+  const [message, setMessage] = useState("");
+  const messagesEndRef = useRef(null);
+  const [messages, setMessages] = useState([
+    {
+      type: "bot",
+      text: "¡Hola! 👋 Soy tu asistente virtual. ¿En qué puedo ayudarte?",
+      time: new Date(),
+    },
+  ]);
 
-  const showNotification = (text, type = "info") => {
-    setNotification({ text, type });
-    setTimeout(() => setNotification(null), 5000);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const { name, email, message } = formData;
-
-    if (!name || !email || !message) {
-      showNotification("Por favor, completa todos los campos.", "error");
-      return;
-    }
-
-    try {
-      const response = await fetch(
-        `${API_URL}/api/subscribers/send-contact-email`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        }
-      );
-
-      if (response.ok) {
-        showNotification("¡Mensaje enviado con éxito!", "success");
-        setFormData({ name: "", email: "", message: "" });
-      } else {
-        throw new Error("Error al enviar el mensaje");
+  // Auto-scroll al último mensaje
+  useEffect(() => {
+    setTimeout(() => {
+      if (messagesEndRef.current) {
+        messagesEndRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "end",
+        });
       }
-    } catch (error) {
-      showNotification(
-        "Error al enviar el mensaje. Inténtalo de nuevo.",
-        "error"
-      );
+    }, 100);
+  }, [messages]);
+
+  const responses = {
+    "¿Cuál es el costo de envío?":
+      "🚚 El costo de envío es GRATIS en compras mayores a $50.000. Para compras menores, el costo es de $2.500 en todo el país.",
+    "¿Tienen cambios y devoluciones?":
+      "🔄 ¡Sí! Tienes 30 días para hacer cambios o devoluciones. Los productos deben estar en perfectas condiciones y con etiquetas originales.",
+    "¿Cuánto tardan en llegar?":
+      "⏰ Los envíos tardan 3-5 días hábiles. En Buenos Aires y principales ciudades puedes recibirlo en 24-48 horas.",
+    "Quiero hacer un pedido":
+      "🛒 ¡Genial! Puedes hacer tu pedido directamente desde nuestra tienda online. Si necesitas ayuda, puedes contactarnos al +57 300 123 4567.",
+  };
+
+  const handleQuickQuestion = (question) => {
+    // Agregar pregunta del usuario
+    const userMessage = {
+      type: "user",
+      text: question,
+      time: new Date(),
+    };
+
+    // Agregar respuesta del bot
+    const botMessage = {
+      type: "bot",
+      text:
+        responses[question] ||
+        "Gracias por tu pregunta. Te contactaremos pronto con una respuesta detallada.",
+      time: new Date(),
+    };
+
+    setMessages((prev) => [...prev, userMessage, botMessage]);
+  };
+
+  const handleSendMessage = () => {
+    if (message.trim()) {
+      // Agregar mensaje del usuario
+      const userMessage = {
+        type: "user",
+        text: message,
+        time: new Date(),
+      };
+
+      // Verificar si es una pregunta rápida
+      const botResponse =
+        responses[message] ||
+        "¡Gracias por tu mensaje! 📝 Un miembro de nuestro equipo te responderá a la brevedad.";
+
+      const botMessage = {
+        type: "bot",
+        text: botResponse,
+        time: new Date(),
+      };
+
+      setMessages((prev) => [...prev, userMessage, botMessage]);
+      setMessage("");
     }
   };
 
-  const handleChange = (e) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
+  const quickQuestions = [
+    "¿Cuál es el costo de envío?",
+    "¿Tienen cambios y devoluciones?",
+    "¿Cuánto tardan en llegar?",
+    "Quiero hacer un pedido",
+  ];
 
   return (
     <>
-      <AnimatePresence>
-        {!isOpen && (
-          <motion.button
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0, opacity: 0 }}
-            onClick={() => setIsOpen(true)}
-            className="fixed z-50 bottom-6 right-6 p-5 bg-black rounded-full shadow-lg shadow-white/30 hover:shadow-xl transform hover:scale-110 transition-all duration-300"
-          >
-            <BsChatRightFill className="w-6 h-6 text-white" />
-          </motion.button>
-        )}
+      {/* Chat Button */}
+      {!isOpen && (
+        <button
+          onClick={() => setIsOpen(true)}
+          className="fixed bottom-6 right-6 z-50 w-12 h-12 bg-black rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-110 group"
+        >
+          <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent rounded-full"></div>
+          <div className="absolute inset-0 rounded-full border-2 border-white/15 animate-ping"></div>
+          <div
+            className="absolute inset-0 rounded-full border-2 border-white/8 animate-ping"
+            style={{ animationDelay: "1s" }}
+          ></div>
+          <span className="text-xl group-hover:rotate-12 transition-transform duration-300">
+            💬
+          </span>
+        </button>
+      )}
 
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            className="fixed z-50 font-parkinsans  bottom-6 right-6 w-96 max-w-[calc(100vw-2rem)] bg-white rounded-2xl shadow-2xl"
-          >
-            <div className="flex items-center justify-between p-4 bg-black rounded-t-2xl">
-              <h2 className="text-white font-medium">Chat con nosotros</h2>
+      {/* Chat Modal */}
+      {isOpen && (
+        <div className="fixed bottom-20 right-6 z-50 w-72 max-w-[calc(100vw-1rem)] bg-white rounded-2xl shadow-2xl border border-gray-200">
+          {/* Header */}
+          <div className="bg-black text-white p-3 rounded-t-2xl">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="font-bold text-base">¡Hola! 👋</h3>
+                <p className="text-xs opacity-90">¿En qué podemos ayudarte?</p>
+              </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className="text-white/80 hover:text-white transition-colors"
+                className="w-7 h-7 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors"
               >
-                <X className="w-5 h-5" />
+                ✕
               </button>
             </div>
+          </div>
 
-            <form onSubmit={handleSubmit} className="p-6 space-y-4">
-              <div className="space-y-1">
-                <label className="flex items-center text-sm font-medium text-gray-700">
-                  <User className="w-4 h-4 mr-2" />
-                  Nombre
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 rounded-lg bg-gray-50 border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all duration-200"
-                  placeholder="Tu nombre"
-                />
+          {/* Chat Body */}
+          <div className="p-3 max-h-80 overflow-y-auto chat-scroll">
+            {/* Messages */}
+            <div className="space-y-2 mb-3">
+              {messages.map((msg, index) => (
+                <div
+                  key={index}
+                  className={`flex ${msg.type === "user" ? "justify-end" : "justify-start"}`}
+                >
+                  <div
+                    className={`max-w-[85%] p-2 rounded-lg text-xs ${
+                      msg.type === "user"
+                        ? "bg-black text-white"
+                        : "bg-gray-100 text-gray-800"
+                    }`}
+                  >
+                    <p className="break-words">{msg.text}</p>
+                    <p
+                      className={`text-[10px] mt-1 opacity-70 ${
+                        msg.type === "user" ? "text-white/70" : "text-gray-500"
+                      }`}
+                    >
+                      {msg.time.toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div ref={messagesEndRef} />
+
+            {/* Quick Questions */}
+            <div className="mb-3">
+              <p className="text-xs text-gray-500 mb-1.5 font-medium">
+                Preguntas frecuentes:
+              </p>
+              <div className="grid grid-cols-1 gap-1.5">
+                {quickQuestions.map((question, index) => (
+                  <button
+                    key={index}
+                    onClick={() => handleQuickQuestion(question)}
+                    className="text-left p-1.5 bg-gray-50 hover:bg-gray-100 rounded text-xs text-gray-700 transition-colors border border-gray-200 hover:border-gray-300"
+                  >
+                    {question}
+                  </button>
+                ))}
               </div>
+            </div>
 
-              <div className="space-y-1">
-                <label className="flex items-center text-sm font-medium text-gray-700">
-                  <Mail className="w-4 h-4 mr-2" />
-                  Email
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 rounded-lg bg-gray-50 border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all duration-200"
-                  placeholder="tu@email.com"
-                />
+            {/* Contact Info */}
+            <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-2.5 rounded-lg">
+              <p className="text-xs font-medium text-gray-700 mb-1.5">
+                📞 Contacto directo:
+              </p>
+              <div className="space-y-0.5 text-xs">
+                <p className="flex items-center text-gray-600">
+                  <span className="mr-1.5">📱</span>
+                  <a
+                    href="tel:+573001234567"
+                    className="hover:text-blue-600 transition-colors"
+                  >
+                    +57 300 123 4567
+                  </a>
+                </p>
+                <p className="flex items-center text-gray-600">
+                  <span className="mr-1.5">✉️</span>
+                  <a
+                    href="mailto:contacto@tuclothing.com"
+                    className="hover:text-blue-600 transition-colors"
+                  >
+                    contacto@tuclothing.com
+                  </a>
+                </p>
+                <p className="flex items-center text-gray-600">
+                  <span className="mr-1.5">🕒</span>
+                  Lun - Vie: 9:00 - 18:00
+                </p>
               </div>
+            </div>
+          </div>
 
-              <div className="space-y-1">
-                <label className="flex items-center text-sm font-medium text-gray-700">
-                  <MessageSquare className="w-4 h-4 mr-2" />
-                  Mensaje
-                </label>
-                <textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  rows={4}
-                  className="w-full px-4 py-2 rounded-lg bg-gray-50 border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all duration-200 resize-none"
-                  placeholder="¿En qué podemos ayudarte?"
-                />
-              </div>
-
+          {/* Message Input */}
+          <div className="border-t border-gray-200 p-3">
+            <div className="flex space-x-2">
+              <input
+                type="text"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder="Escribe tu mensaje..."
+                className="flex-1 px-2.5 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm"
+                onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
+              />
               <button
-                type="submit"
-                className="w-full px-4 py-2 bg-black text-white rounded-lg font-medium hover:from-indigo-600 hover:to-purple-700 focus:ring-2 focus:ring-indigo-200 transition-all duration-200 flex items-center justify-center space-x-2"
+                onClick={handleSendMessage}
+                disabled={!message.trim()}
+                className="px-3 py-1.5 bg-black text-white rounded-lg hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 font-medium text-sm"
               >
-                <Send className="w-4 h-4" />
-                <span>Enviar mensaje</span>
+                →
               </button>
-            </form>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {notification && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 20 }}
-          className={`fixed z-50 bottom-6 left-6 p-4 rounded-lg shadow-lg ${
-            notification.type === "success"
-              ? "bg-green-500"
-              : notification.type === "error"
-              ? "bg-red-500"
-              : "bg-blue-500"
-          }`}
-        >
-          <p className="text-white">{notification.text}</p>
-        </motion.div>
+            </div>
+          </div>
+        </div>
       )}
     </>
   );

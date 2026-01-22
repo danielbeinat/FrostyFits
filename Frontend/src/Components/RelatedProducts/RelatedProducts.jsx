@@ -10,9 +10,16 @@ export const RelatedProducts = ({ category }) => {
     try {
       const response = await fetch(`${API_URL}/api/products/allproducts`);
       const data = await response.json();
-      setrelated(data);
+
+      if (data.success && Array.isArray(data.products)) {
+        setrelated(data.products);
+      } else {
+        console.error("Invalid products data:", data);
+        setrelated([]);
+      }
     } catch (error) {
       console.log(error);
+      setrelated([]);
     }
   };
 
@@ -20,9 +27,9 @@ export const RelatedProducts = ({ category }) => {
     FetchRelated();
   }, []);
 
-  const Products = related
-    .filter((item) => item.category === category)
-    .slice(0, 4);
+  const Products = Array.isArray(related)
+    ? related.filter((item) => item.category === category).slice(0, 4)
+    : [];
 
   return (
     <>
@@ -40,7 +47,7 @@ export const RelatedProducts = ({ category }) => {
                 name={item.name}
                 image={item.image}
                 price={item.price}
-                // discount={item.discount}
+                discount={item.discount}
                 // description={item.description}
               />
             );

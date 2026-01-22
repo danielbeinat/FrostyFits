@@ -1,10 +1,16 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { ShoopContext } from "../../Context/ShoopContext";
-import React, { useContext } from "react";
+import { formatPrice } from "../../utils/currency";
 
 export const Checkout = () => {
   const [step, setStep] = useState(1);
   const { getTotalCartAmount, Allproducts, cart } = useContext(ShoopContext);
+
+  // Safety check to prevent map errors
+  if (!Array.isArray(Allproducts)) {
+    console.error("Allproducts is not an array:", Allproducts);
+    return <div className="text-center py-8">Loading products...</div>;
+  }
 
   const [formData, setFormData] = useState({
     email: "",
@@ -166,7 +172,7 @@ export const Checkout = () => {
           {Allproducts.map((product) => {
             if (cart[product._id] > 0) {
               return (
-                <div key={product.id} className="flex gap-4">
+                <div key={product._id} className="flex gap-4">
                   <img
                     src={product.image}
                     alt={product.title}
@@ -182,7 +188,7 @@ export const Checkout = () => {
                         {cart[product._id]}
                       </span>
                       <span className="font-medium">
-                        ${product.price.toLocaleString()}
+                        {formatPrice(product.price)}
                       </span>
                     </div>
                   </div>
@@ -206,11 +212,11 @@ export const Checkout = () => {
           <div className="space-y-2 pt-4 border-t">
             <div className="flex justify-between">
               <span>Subtotal</span>
-              <span>${getTotalCartAmount().toLocaleString()}</span>
+              <span>{formatPrice(getTotalCartAmount())}</span>
             </div>
             <div className="flex justify-between font-bold">
               <span>Total</span>{" "}
-              <span>${getTotalCartAmount().toLocaleString()}</span>
+              <span>{formatPrice(getTotalCartAmount())}</span>
             </div>
           </div>
 

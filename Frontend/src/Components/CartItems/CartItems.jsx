@@ -1,11 +1,18 @@
 import { ShoopContext } from "../../Context/ShoopContext";
-import React, { useContext } from "react";
-import { MdDelete } from "react-icons/md";
+import { useContext } from "react";
+import { Trash2 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { formatPrice } from "../../utils/currency";
 
 export const CartItems = () => {
   const { Allproducts, cart, removeFromCart, getTotalCartAmount } =
     useContext(ShoopContext);
+
+  // Safety check to prevent map errors
+  if (!Array.isArray(Allproducts)) {
+    console.error("Allproducts is not an array:", Allproducts);
+    return <div className="text-center py-8">Loading products...</div>;
+  }
 
   return (
     <div className="mx-auto px-4 py-8  font-parkinsans">
@@ -33,20 +40,18 @@ export const CartItems = () => {
                     className="w-20 h-20 object-cover rounded"
                   />
                   <p className="font-medium">{item.name}</p>
-                  <p className="text-gray-600">
-                    ${item.price.toLocaleString()}
-                  </p>
+                  <p className="text-gray-600">{formatPrice(item.price)}</p>
                   <p className="bg-gray-100 px-3 py-1 rounded-full mr-28 text-center">
                     {cart[item._id]}
                   </p>
                   <p className="font-semibold">
-                    ${(item.price * cart[item._id]).toLocaleString()}
+                    {formatPrice(item.price * cart[item._id])}
                   </p>
                   <button
                     onClick={() => removeFromCart(item._id)}
                     className="text-red-500 hover:text-red-700 pl-4 transition-colors duration-200"
                   >
-                    <MdDelete size={24} />
+                    <Trash2 size={20} />
                   </button>
                 </div>
               );

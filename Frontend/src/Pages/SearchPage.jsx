@@ -7,9 +7,11 @@ export const SearchPage = () => {
   const { Allproducts } = useContext(ShoopContext);
   const { searchQuery } = useParams();
 
-  const filteredProducts = Allproducts.filter((product) =>
-    product.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredProducts = Array.isArray(Allproducts)
+    ? Allproducts.filter((product) =>
+        product.name.toLowerCase().includes(searchQuery.toLowerCase()),
+      )
+    : [];
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 lg:py-8 font-parkinsans">

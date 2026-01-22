@@ -1,18 +1,17 @@
 import "./Navbar.scss";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { Menu, X } from "lucide-react";
 import Logo from "../../assets/Logo.webp";
 import { useState } from "react";
 import { CartModal } from "../CartModal/CartModal";
 import { CartIcon } from "./CartIcon/CartIcon";
 import { Favorite } from "./Favorite/Favorite";
 import { LoginIcon } from "./LoginIcon/LoginIcon";
-import { TopBar } from "./TopBar/TopBar";
 import { NavLinks } from "./NavLinks/NavLinks";
 import { Link } from "react-router-dom";
 import { Search } from "./Search/Search";
 
 import { SearchResponsive } from "./Search/SearchResponsive";
+import { TopBar } from "./TopBar/TopBar";
 
 export const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -29,14 +28,12 @@ export const Navbar = () => {
   return (
     <>
       <div className="fixed z-50 w-full top-0 left-0 ">
-        <div className="container font-parkinsans">
-          <TopBar />
-        </div>
+        <TopBar />
         <header
           className={`header font-parkinsans ${showMenu ? "show-menu" : ""}`}
         >
           <div className="hamburger" onClick={toggleMenu}>
-            <FontAwesomeIcon icon={showMenu ? faTimes : faBars} />
+            {showMenu ? <X /> : <Menu />}
           </div>
           <Link
             to="/"
