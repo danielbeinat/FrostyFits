@@ -44,7 +44,8 @@ const corsOptions = {
 
         // En producción, verificar origen
         if (process.env.NODE_ENV === 'production') {
-            if (!origin) return callback(new Error('Origin required in production'));
+            // Permitir peticiones sin Origin (directas, herramientas, etc.)
+            if (!origin) return callback(null, true);
             if (!allowedOrigins.includes(origin) && !isVercelOrigin(origin) && !isNetlifyOrigin(origin)) {
                 return callback(new Error('Not allowed by CORS'));
             }
