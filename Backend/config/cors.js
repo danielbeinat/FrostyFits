@@ -30,16 +30,25 @@ const corsOptions = {
             }
         };
 
+        const isNetlifyOrigin = (o) => {
+            try {
+                const url = new URL(o);
+                return url.hostname.endsWith('.netlify.app');
+            } catch {
+                return false;
+            }
+        };
+
         // En producción, verificar origen
         if (process.env.NODE_ENV === 'production') {
             if (!origin) return callback(new Error('Origin required in production'));
-            if (!allowedOrigins.includes(origin) && !isVercelOrigin(origin)) {
+            if (!allowedOrigins.includes(origin) && !isVercelOrigin(origin) && !isNetlifyOrigin(origin)) {
                 return callback(new Error('Not allowed by CORS'));
             }
         }
 
         // En desarrollo, permitir orígenes conocidos o sin origen (para herramientas)
-        if (!origin || allowedOrigins.includes(origin) || isVercelOrigin(origin)) {
+        if (!origin || allowedOrigins.includes(origin) || isVercelOrigin(origin) || isNetlifyOrigin(origin)) {
             return callback(null, true);
         }
 
