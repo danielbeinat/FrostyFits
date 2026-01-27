@@ -9,7 +9,7 @@ export default defineConfig({
 
   build: {
     rollupOptions: {
-      external: ['web-vitals', 'axios', 'date-fns'],
+      external: ['axios', 'date-fns'],
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom'],
