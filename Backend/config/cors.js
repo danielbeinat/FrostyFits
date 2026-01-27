@@ -17,6 +17,9 @@ const corsOptions = {
             'http://localhost:5176',
             'http://localhost:5177',
             'http://localhost:7654',
+            // Producción específica
+            'https://frostyfits.netlify.app',
+            'https://www.frostyfits.netlify.app',
             // Producción (Vercel)
             ...envOrigins
         ];
