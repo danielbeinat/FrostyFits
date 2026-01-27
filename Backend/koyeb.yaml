@@ -1,0 +1,42 @@
+name: frostyfits-backend
+services:
+  - name: api
+    type: web
+    env: node
+    plan: starter
+    build_command: npm install
+    run_command: npm start
+    source_dir: /
+    port: 5000
+    health_check_path: /health
+    env_vars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: "5000"
+      - key: MONGO_URI
+        value: "${KOYEB_MONGO_URI}"
+      - key: JWT_SECRET
+        value: "${KOYEB_JWT_SECRET}"
+      - key: EMAIL_USER
+        value: "${KOYEB_EMAIL_USER}"
+      - key: EMAIL_PASS
+        value: "${KOYEB_EMAIL_PASS}"
+      - key: ADMIN_EMAIL
+        value: "${KOYEB_ADMIN_EMAIL}"
+      - key: CLOUDINARY_NAME
+        value: "${KOYEB_CLOUDINARY_NAME}"
+      - key: CLOUDINARY_KEY
+        value: "${KOYEB_CLOUDINARY_KEY}"
+      - key: CLOUDINARY_SECRET
+        value: "${KOYEB_CLOUDINARY_SECRET}"
+      - key: ALLOWED_ORIGINS
+        value: "${KOYEB_ALLOWED_ORIGINS}"
+    routes:
+      - path: /api
+    instance_type: nano
+    regions:
+      - was
+    autoscaling:
+      min_instances: 1
+      max_instances: 2
