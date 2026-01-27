@@ -100,6 +100,15 @@ const errorHandler = (err, req, res, next) => {
     // Log del error
     logError(err, req);
 
+    // Log adicional para Koyeb
+    console.error('ERROR DETECTED:', {
+        message: err.message,
+        stack: err.stack,
+        url: req.originalUrl,
+        method: req.method,
+        timestamp: new Date().toISOString()
+    });
+
     if (process.env.NODE_ENV === 'development') {
         sendErrorDev(err, req, res);
     } else {
