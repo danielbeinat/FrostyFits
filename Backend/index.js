@@ -22,6 +22,9 @@ import User from "./models/User.js";
 const app = express();
 dotenv.config();
 
+// Trust proxy for Koyeb
+app.set('trust proxy', true);
+
 // Connect to database
 db();
 
@@ -56,6 +59,9 @@ app.use(httpLogger);
 
 // Static files
 app.use("/images", express.static("upload/images"));
+
+// Favicon route
+app.get('/favicon.ico', (req, res) => res.status(204).end());
 
 // Health check endpoint
 app.get('/health', (req, res) => {
