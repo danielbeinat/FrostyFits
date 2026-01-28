@@ -6,22 +6,13 @@ class TokenManager {
         this.USER_KEY = 'user_data';
     }
 
-    // Secure token storage with httpOnly cookies fallback
+    // Secure token storage
     setToken(token, refreshToken = null) {
         try {
-            // In production, use httpOnly cookies via server
-            if (import.meta.env.PROD) {
-                // Set via server response headers
-                document.cookie = `auth_token=${token}; path=/; secure; httpOnly; sameSite=strict; max-age=3600`;
-                if (refreshToken) {
-                    document.cookie = `refresh_token=${refreshToken}; path=/; secure; httpOnly; sameSite=strict; max-age=2592000`;
-                }
-            } else {
-                // Development fallback to localStorage to match login/register
-                localStorage.setItem(this.TOKEN_KEY, token);
-                if (refreshToken) {
-                    localStorage.setItem(this.REFRESH_TOKEN_KEY, refreshToken);
-                }
+            // Consistent storage in both development and production
+            localStorage.setItem(this.TOKEN_KEY, token);
+            if (refreshToken) {
+                localStorage.setItem(this.REFRESH_TOKEN_KEY, refreshToken);
             }
         } catch (error) {
             console.error('Error setting token:', error);
@@ -30,13 +21,8 @@ class TokenManager {
 
     getToken() {
         try {
-            if (import.meta.env.PROD) {
-                // In production, read from httpOnly cookie via server
-                return this.getCookie(this.TOKEN_KEY);
-            } else {
-                // In development, read from localStorage to match login/register
-                return localStorage.getItem(this.TOKEN_KEY);
-            }
+            // Always read from localStorage to match login/register
+            return localStorage.getItem(this.TOKEN_KEY);
         } catch (error) {
             console.error('Error getting token:', error);
             return null;
@@ -45,12 +31,8 @@ class TokenManager {
 
     getRefreshToken() {
         try {
-            if (import.meta.env.PROD) {
-                return this.getCookie(this.REFRESH_TOKEN_KEY);
-            } else {
-                // In development, read from localStorage to match login/register
-                return localStorage.getItem(this.REFRESH_TOKEN_KEY);
-            }
+            // Always read from localStorage to match login/register
+            return localStorage.getItem(this.REFRESH_TOKEN_KEY);
         } catch (error) {
             console.error('Error getting refresh token:', error);
             return null;
@@ -59,14 +41,9 @@ class TokenManager {
 
     removeToken() {
         try {
-            if (import.meta.env.PROD) {
-                document.cookie = `${this.TOKEN_KEY}=; path=/; secure; httpOnly; sameSite=strict; max-age=0`;
-                document.cookie = `${this.REFRESH_TOKEN_KEY}=; path=/; secure; httpOnly; sameSite=strict; max-age=0`;
-            } else {
-                // In development, remove from localStorage to match login/register
-                localStorage.removeItem(this.TOKEN_KEY);
-                localStorage.removeItem(this.REFRESH_TOKEN_KEY);
-            }
+            // Always remove from localStorage to match login/register
+            localStorage.removeItem(this.TOKEN_KEY);
+            localStorage.removeItem(this.REFRESH_TOKEN_KEY);
         } catch (error) {
             console.error('Error removing token:', error);
         }
