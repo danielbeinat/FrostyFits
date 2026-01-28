@@ -1,7 +1,6 @@
 import logger from '../config/logger.js';
 import { logError } from '../config/logger.js';
 
-// Clase personalizada para errores de la aplicación
 class AppError extends Error {
     constructor(message, statusCode, isOperational = true) {
         super(message);
@@ -13,7 +12,6 @@ class AppError extends Error {
     }
 }
 
-// Manejo de errores de MongoDB/Mongoose
 const handleCastErrorDB = (err) => {
     const message = `Invalid ${err.path}: ${err.value}`;
     return new AppError(message, 400);
@@ -37,9 +35,7 @@ const handleJWTError = () =>
 const handleJWTExpiredError = () =>
     new AppError('Your token has expired! Please log in again.', 401);
 
-// Enviar error en desarrollo
 const sendErrorDev = (err, req, res) => {
-    // API error
     if (req.originalUrl.startsWith('/api')) {
         return res.status(err.statusCode).json({
             success: false,
@@ -49,7 +45,6 @@ const sendErrorDev = (err, req, res) => {
         });
     }
 
-    // Render error page (si tuvieras frontend renderizado)
     console.error('ERROR 💥', err);
     return res.status(err.statusCode).json({
         success: false,
@@ -57,11 +52,8 @@ const sendErrorDev = (err, req, res) => {
     });
 };
 
-// Enviar error en producción
 const sendErrorProd = (err, req, res) => {
-    // API error
     if (req.originalUrl.startsWith('/api')) {
-        // Operational, trusted error: send message to client
         if (err.isOperational) {
             return res.status(err.statusCode).json({
                 success: false,
@@ -69,7 +61,6 @@ const sendErrorProd = (err, req, res) => {
             });
         }
 
-        // Programming or other unknown error: don't leak error details
         console.error('ERROR 💥', err);
         return res.status(500).json({
             success: false,
@@ -77,7 +68,6 @@ const sendErrorProd = (err, req, res) => {
         });
     }
 
-    // Render error page (si tuvieras frontend renderizado)
     if (err.isOperational) {
         return res.status(err.statusCode).json({
             success: false,
@@ -92,15 +82,12 @@ const sendErrorProd = (err, req, res) => {
     });
 };
 
-// Middleware de errores principal
 const errorHandler = (err, req, res, next) => {
     err.statusCode = err.statusCode || 500;
     err.status = err.status || 'error';
 
-    // Log del error
     logError(err, req);
 
-    // Log adicional para Koyeb
     console.error('ERROR DETECTED:', {
         message: err.message,
         stack: err.stack,
@@ -115,7 +102,6 @@ const errorHandler = (err, req, res, next) => {
         let error = { ...err };
         error.message = err.message;
 
-        // Manejar errores específicos de MongoDB
         if (error.name === 'CastError') error = handleCastErrorDB(error);
         if (error.code === 11000) error = handleDuplicateFieldsDB(error);
         if (error.name === 'ValidationError') error = handleValidationErrorDB(error);
@@ -126,14 +112,12 @@ const errorHandler = (err, req, res, next) => {
     }
 };
 
-// Middleware para capturar errores asíncronos no manejados
 const catchAsync = (fn) => {
     return (req, res, next) => {
         fn(req, res, next).catch(next);
     };
 };
 
-// Middleware para rutas no encontradas
 const notFound = (req, res, next) => {
     const err = new AppError(`Can't find ${req.originalUrl} on this server!`, 404);
     next(err);
