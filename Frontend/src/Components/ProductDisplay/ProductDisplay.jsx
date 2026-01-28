@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import { ShoopContext } from "../../Context/ShoopContext";
+import { AuthContext } from "../../Context/AuthContext";
 import { ProductSlider } from "./ProductSlider/ProductSlider";
 import LoginModal from "../UI/Modal/LoginModal";
 import ErrorModal from "../UI/Modal/ErrorModal";
@@ -32,10 +33,13 @@ export const ProductDisplay = (props) => {
 
   const { product } = props;
   const { addToCart, cart } = useContext(ShoopContext);
+  const { isAuthenticated } = useContext(AuthContext);
   const basePrice = Number(product.price) || 0;
   const discountPercent = Number(product.discount) || 0;
   const discountedPrice =
-    discountPercent > 0 ? basePrice - (basePrice * discountPercent) / 100 : basePrice;
+    discountPercent > 0
+      ? basePrice - (basePrice * discountPercent) / 100
+      : basePrice;
 
   const [selectedSize, setSelectedSize] = useState("");
   const [quantity, setQuantity] = useState(1);
@@ -44,6 +48,11 @@ export const ProductDisplay = (props) => {
 
   const handleAddToCart = async () => {
     if (!selectedSize && product.type !== "Gorro") {
+      return;
+    }
+
+    if (!isAuthenticated) {
+      setShowLoginModal(true);
       return;
     }
 

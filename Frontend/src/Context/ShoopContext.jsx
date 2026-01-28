@@ -71,7 +71,7 @@ export const ShoopProvider = (props) => {
 
   const addToCart = useCallback(
     async (itemId, size = null, quantity = 1) => {
-      // Check if user is authenticated
+      // Check if user is authenticated using token validation
       if (!tokenManager.isTokenValid()) {
         throw new Error("Please login to add items to cart");
       }
@@ -102,6 +102,8 @@ export const ShoopProvider = (props) => {
 
         if (!response.ok) {
           if (response.status === 401) {
+            // Clear invalid token and throw error
+            tokenManager.removeToken();
             throw new Error("Please login to add items to cart");
           }
           throw new Error(`Failed to add to cart: ${response.status}`);
@@ -118,7 +120,7 @@ export const ShoopProvider = (props) => {
         throw error;
       }
     },
-    [cart, secureAPI],
+    [cart, secureAPI, tokenManager],
   );
 
   const removeFromCart = useCallback(
