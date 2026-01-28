@@ -18,7 +18,7 @@ export const Feature = () => {
         setTrading([]);
       }
     } catch (error) {
-      console.log(error);
+      console.error("Error fetching trading products:", error);
       setTrading([]);
     }
   };

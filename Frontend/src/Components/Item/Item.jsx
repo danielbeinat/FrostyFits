@@ -21,8 +21,7 @@ export const Item = (props) => {
       setShowMessage(true);
       setTimeout(() => setShowMessage(false), 3000); // Oculta el mensaje después de 3 segundos
     } else {
-      // Lógica para agregar a favoritos
-      console.log("Producto agregado a favoritos");
+      // Lógica para agregar a favoritos (se puede implementar en el futuro)
     }
   };
 

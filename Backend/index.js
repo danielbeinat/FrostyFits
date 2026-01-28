@@ -98,59 +98,6 @@ app.get('/health/db', async (req, res) => {
     }
 });
 
-// Reset rate limiter (development only)
-if (process.env.NODE_ENV !== 'production') {
-    app.post('/api/reset-rate-limit', (req, res) => {
-        // Reset the rate limiter store
-        if (generalLimiter.store) {
-            generalLimiter.store.resetAll();
-        }
-        if (uploadLimiter.store) {
-            uploadLimiter.store.resetAll();
-        }
-        if (authLimiter.store) {
-            authLimiter.store.resetAll();
-        }
-
-        res.json({
-            success: true,
-            message: 'Rate limiters reset successfully'
-        });
-    });
-}
-
-// Create admin user (temporary, remove after use)
-app.post('/api/create-admin', async (req, res) => {
-    try {
-        const bcrypt = await import('bcryptjs');
-        const User = await import('./models/User.js');
-
-        // Check if admin already exists
-        const existingAdmin = await User.default.findOne({ email: 'admin@frostyfits.com' });
-        if (existingAdmin) {
-            return res.json({ success: true, message: 'Admin already exists' });
-        }
-
-        // Create admin user
-        const hashedPassword = await bcrypt.default.hash('admin123', 10);
-        const adminUser = new User.default({
-            name: 'Admin User',
-            email: 'admin@frostyfits.com',
-            password: hashedPassword,
-            cartData: {}
-        });
-
-        await adminUser.save();
-        res.json({
-            success: true,
-            message: 'Admin created successfully',
-            credentials: { email: 'admin@frostyfits.com', password: 'admin123' }
-        });
-    } catch (error) {
-        res.status(500).json({ success: false, message: error.message });
-    }
-});
-
 // API Routes with specific rate limiters
 app.use("/api/auth", authLimiter, authRoutes);
 app.use("/api/products", productRoutes);

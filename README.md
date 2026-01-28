@@ -1,33 +1,32 @@
-# FrostyFits — Monorepo (Frontend + Backend)
+# FrostyFits — Monorepo
 
-Proyecto de e-commerce con Frontend en React (Vite) y Backend en Express + MongoDB. Incluye autenticación, gestión de productos, subida de imágenes y páginas informativas.
+Ecommerce de indumentaria. Sistema completo con Frontend para clientes, Panel de Administración y Backend escalable.
 
-## Tecnologías
+## 🚀 Estructura del Proyecto
 
-- **Frontend:** React 18, Vite, React Router, Tailwind/SCSS
-- **Backend:** Node 20, Express, MongoDB (Atlas o local)
-- **Servicios:** Cloudinary (imágenes), Nodemailer (emails)
+- **/Frontend:** Aplicación cliente (React + Vite + Tailwind CSS). Desplegada en Netlify.
+- **/admin:** Panel de gestión de productos y stock (React + Vite).
+- **/Backend:** API REST (Node.js + Express + MongoDB Atlas). Desplegada en Koyeb.
 
-## Estructura
+## 🛠️ Tecnologías Principales
 
-- `Frontend/` — SPA de la tienda
-- `backend/` — API REST y servicios
+- **Frontend:** React, Tailwind CSS, Lucide Icons.
+- **Backend:** Node.js, Express, Mongoose, JWT.
+- **Infraestructura:** MongoDB Atlas (DB), Cloudinary (Imágenes), Koyeb (API), Netlify (Web).
 
-### Backend
+## 📋 Requisitos Previos
 
-1. `cd backend`
-2. `npm install`
-3. Crear `.env` con las variables necesarias.
-4. `npm run dev`
+- Node.js (v18+)
+- Cuenta en MongoDB Atlas
+- Cuenta en Cloudinary
 
-### Frontend
+## ⚙️ Configuración Rápida
 
-1. `cd Frontend`
-2. `npm install`
-3. `npm run dev` (Usa localhost:5000 por defecto para la API).
+1. Clonar el repositorio.
+2. Configurar variables de entorno (`.env`) en cada carpeta siguiendo sus respectivos READMEs.
+3. Instalar dependencias en cada directorio:
+   ```bash
+   npm install
+   ```
 
-## Endpoints principales
 
-- **Auth:** `/api/auth/login`, `/api/auth/signup`
-- **Productos:** `/api/products`
-- **Upload:** `POST /api/upload` (Imágenes a Cloudinary)

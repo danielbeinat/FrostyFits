@@ -18,7 +18,7 @@ export const News = () => {
         setAllproducts([]);
       }
     } catch (error) {
-      console.log(error);
+      console.error("Error fetching news:", error);
       setAllproducts([]);
     }
   };

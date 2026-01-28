@@ -1,8 +1,39 @@
-# React + Vite
+# FrostyFits — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Tienda online de indumentaria técnica con una experiencia de usuario moderna y fluida.
 
-Currently, two official plugins are available:
+## 🛠️ Tecnologías
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- React (Vite)
+- Tailwind CSS & Sass
+- Swiper (Sliders)
+- Lucide Icons & Framer Motion
+- Context API para gestión de estado (Carrito/Auth)
+
+## ⚙️ Variables de Entorno
+
+Crear un archivo `.env` en esta carpeta:
+
+```env
+VITE_API_URL=https://tu-api-en-koyeb.app
+```
+
+## 🚀 Comandos
+
+```bash
+# Instalar dependencias
+npm install
+
+# Iniciar servidor de desarrollo
+npm run dev
+
+# Construir para producción
+npm run build
+```
+
+## 📦 Características
+
+- Catálogo dinámico con filtros por categoría.
+- Carrito de compras con persistencia.
+- Sistema de autenticación de usuarios.
+- Diseño 100% responsivo.

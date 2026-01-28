@@ -8,9 +8,9 @@ export const Navbar = () => {
   const { user: authUser, logout } = useAuth();
 
   const menuItems = [
-    { label: "Profile Settings", action: () => console.log("Profile") },
-    { label: "Notifications", action: () => console.log("Notifications") },
-    { label: "Help & Support", action: () => console.log("Help") },
+    { label: "Profile Settings", action: () => {} },
+    { label: "Notifications", action: () => {} },
+    { label: "Help & Support", action: () => {} },
     { label: "Logout", action: logout, danger: true },
   ];
 

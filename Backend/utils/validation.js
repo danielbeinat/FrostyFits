@@ -228,12 +228,6 @@ export const validate = (schema, source = 'body') => {
                 value: detail.context.value
             }));
 
-            console.log('Validation Error Details:', {
-                errors,
-                received: req[source],
-                source
-            });
-
             return res.status(400).json({
                 success: false,
                 message: 'Validation failed',

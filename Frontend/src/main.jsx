@@ -11,6 +11,7 @@ import {
 import "./index.css";
 
 // Performance monitoring
+/*
 if (import.meta.env.PROD) {
   // Report web vitals
   import("web-vitals").then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
@@ -21,6 +22,7 @@ if (import.meta.env.PROD) {
     getTTFB(console.log);
   });
 }
+*/
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <AccessibilityProvider>

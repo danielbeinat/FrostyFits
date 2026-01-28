@@ -29,9 +29,6 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      console.log("Attempting login with:", { email, password: "***" });
-      console.log("API_URL:", API_URL);
-
       const response = await fetch(`${API_URL}/api/auth/login`, {
         method: "POST",
         headers: {
@@ -40,33 +37,26 @@ export const AuthProvider = ({ children }) => {
         body: JSON.stringify({ email, password }),
       });
 
-      console.log("Response status:", response.status);
-      console.log("Response ok:", response.ok);
-
       if (!response.ok) {
-        const errorText = await response.text();
-        console.log("Error response:", errorText);
+        const errorData = await response.json().catch(() => ({}));
         return {
           success: false,
-          message: `HTTP ${response.status}: ${errorText}`,
+          message: errorData.message || "Invalid credentials",
         };
       }
 
       const data = await response.json();
-      console.log("Response data:", data);
 
       if (data.success) {
         localStorage.setItem("adminToken", data.token);
         localStorage.setItem("adminUser", JSON.stringify(data.user));
         setUser(data.user);
         setIsAuthenticated(true);
-        console.log("Login successful!");
 
         // Forzar redirección
         window.location.href = "/";
         return { success: true };
       } else {
-        console.log("Login failed:", data.message);
         return { success: false, message: data.message || "Login failed" };
       }
     } catch (error) {

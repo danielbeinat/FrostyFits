@@ -18,7 +18,7 @@ export const RelatedProducts = ({ category }) => {
         setrelated([]);
       }
     } catch (error) {
-      console.log(error);
+      console.error("Error fetching related products:", error);
       setrelated([]);
     }
   };
