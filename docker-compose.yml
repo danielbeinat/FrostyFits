@@ -1,0 +1,43 @@
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: frostyfits-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+  backend:
+    build: ./Backend
+    container_name: frostyfits-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/frostyfits
+      - NODE_ENV=development
+      - PORT=5000
+    depends_on:
+      - mongodb
+
+  frontend:
+    build: ./Frontend
+    container_name: frostyfits-frontend
+    ports:
+      - "3000:80"
+    environment:
+      - VITE_API_URL=http://localhost:5000
+    depends_on:
+      - backend
+
+  admin:
+    build: ./admin
+    container_name: frostyfits-admin
+    ports:
+      - "3001:80"
+    environment:
+      - VITE_API_URL=http://localhost:5000
+    depends_on:
+      - backend
+
+volumes:
+  mongodb_data:
