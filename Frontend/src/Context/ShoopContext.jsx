@@ -79,7 +79,7 @@ export const ShoopProvider = (props) => {
       // Sanitize inputs
       const sanitizedItemId = InputSanitizer.sanitizeString(itemId);
       const sanitizedSize = size ? InputSanitizer.sanitizeString(size) : null;
-      const sanitizedQuantity = InputSanitizer.sanitizeNumber(quantity, 1, 10);
+      const sanitizedQuantity = InputSanitizer.sanitizeNumber(quantity, 1, 100);
 
       // Validation
       if (!sanitizedItemId || sanitizedQuantity < 1) {
@@ -126,7 +126,7 @@ export const ShoopProvider = (props) => {
   const removeFromCart = useCallback(
     async (itemId, quantity = 1) => {
       const sanitizedItemId = InputSanitizer.sanitizeString(itemId);
-      const sanitizedQuantity = InputSanitizer.sanitizeNumber(quantity, 1, 10);
+      const sanitizedQuantity = InputSanitizer.sanitizeNumber(quantity, 1, 100);
 
       if (!sanitizedItemId || sanitizedQuantity < 1) {
         throw new Error("Invalid item ID or quantity");

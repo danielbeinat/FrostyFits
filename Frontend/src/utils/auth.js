@@ -177,7 +177,7 @@ class InputSanitizer {
     }
 
     // Sanitize numeric input
-    static sanitizeNumber(input, min = 0, max = Infinity) {
+    static sanitizeNumber(input, min = 0, max = 100) {
         const num = parseInt(input, 10);
 
         if (isNaN(num)) return min;
