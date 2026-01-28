@@ -83,7 +83,6 @@ export const ProductList = () => {
     }
   };
 
-  // Filtered and searched products
   const filteredProducts = useMemo(() => {
     if (!Array.isArray(products)) return [];
     return products.filter((product) => {
@@ -126,7 +125,7 @@ export const ProductList = () => {
   }, []);
 
   useEffect(() => {
-    setCurrentPage(1); // Reset to first page when filters change
+    setCurrentPage(1);
   }, [searchTerm, selectedCategory, selectedType]);
 
   return (
@@ -138,10 +137,8 @@ export const ProductList = () => {
         <p className="text-gray-600">Manage your store products</p>
       </div>
 
-      {/* Filters and Search */}
       <div className="bg-gray-50 rounded-2xl p-6 shadow-sm border border-gray-200">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {/* Search */}
           <div className="space-y-2">
             <label className="block text-sm font-medium text-gray-700">
               Search Products
@@ -170,7 +167,6 @@ export const ProductList = () => {
             </div>
           </div>
 
-          {/* Category Filter */}
           <div className="space-y-2">
             <label className="block text-sm font-medium text-gray-700">
               Category
@@ -188,7 +184,6 @@ export const ProductList = () => {
             </select>
           </div>
 
-          {/* Type Filter */}
           <div className="space-y-2">
             <label className="block text-sm font-medium text-gray-700">
               Type
@@ -206,7 +201,6 @@ export const ProductList = () => {
             </select>
           </div>
 
-          {/* Results Count */}
           <div className="flex items-end">
             <div className="px-4 py-3 bg-gray-100 border border-gray-200 rounded-xl">
               <div className="text-gray-900 text-sm font-medium">
@@ -220,7 +214,6 @@ export const ProductList = () => {
         </div>
       </div>
 
-      {/* Products Grid */}
       {loading ? (
         <div className="bg-gray-50 rounded-2xl p-12 text-center shadow-sm border border-gray-200">
           <div className="inline-flex items-center space-x-3">

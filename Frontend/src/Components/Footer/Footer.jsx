@@ -23,9 +23,7 @@ export function Footer() {
   return (
     <footer className="relative bg-white text-gray-800 overflow-hidden border-t border-gray-200 font-parkinsans">
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-16">
-        {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-          {/* Brand Section */}
           <motion.div
             className="space-y-6"
             initial={{ opacity: 0, y: 20 }}
@@ -46,7 +44,6 @@ export function Footer() {
               nuestras colecciones.
             </p>
 
-            {/* Social Media */}
             <div className="flex space-x-4">
               {[
                 {
@@ -89,7 +86,6 @@ export function Footer() {
             </div>
           </motion.div>
 
-          {/* Links Section 1 */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -122,7 +118,6 @@ export function Footer() {
             </ul>
           </motion.div>
 
-          {/* Links Section 2 */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -158,7 +153,6 @@ export function Footer() {
             </ul>
           </motion.div>
 
-          {/* Contact Section */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -216,7 +210,6 @@ export function Footer() {
           </motion.div>
         </div>
 
-        {/* Bottom Section */}
         <motion.div
           className="border-t border-gray-200 pt-8"
           initial={{ opacity: 0 }}

@@ -104,7 +104,6 @@ export const Slider = () => {
                 className="w-full h-full object-cover transform scale-100 group-hover:scale-105 transition-transform duration-1000 ease-out"
               />
 
-              {/* Enhanced gradient overlays */}
               <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent pointer-events-none"></div>
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none"></div>
 
@@ -117,7 +116,6 @@ export const Slider = () => {
                     initial="hidden"
                     animate="visible"
                   >
-                    {/* Enhanced Badge */}
                     <motion.div
                       className="inline-flex items-center px-3 py-1.5 bg-white/10 backdrop-blur-md rounded-full text-white text-xs font-semibold mb-4 border border-white/20 shadow-lg"
                       initial={{ opacity: 0, x: -30, scale: 0.8 }}
@@ -132,7 +130,6 @@ export const Slider = () => {
                       {slide.badge}
                     </motion.div>
 
-                    {/* Enhanced Title */}
                     <motion.h1
                       className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight tracking-tight"
                       initial={{ opacity: 0, y: 40 }}
@@ -178,7 +175,6 @@ export const Slider = () => {
                       {slide.description}
                     </motion.p>
 
-                    {/* Enhanced CTA Buttons */}
                     <motion.div
                       className="flex flex-col sm:flex-row gap-4"
                       initial={{ opacity: 0, y: 30 }}
@@ -192,10 +188,15 @@ export const Slider = () => {
                         aria-label={`Explorar ${slide.title}`}
                         onClick={() => {
                           const targetId =
-                            slide.cta === "Ver Ofertas" ? "novedades" : "tendencia";
+                            slide.cta === "Ver Ofertas"
+                              ? "novedades"
+                              : "tendencia";
                           const section = document.getElementById(targetId);
                           if (section) {
-                            section.scrollIntoView({ behavior: "smooth", block: "start" });
+                            section.scrollIntoView({
+                              behavior: "smooth",
+                              block: "start",
+                            });
                           }
                         }}
                       >
@@ -219,7 +220,6 @@ export const Slider = () => {
                 </div>
               </div>
 
-              {/* Enhanced decorative elements */}
               <div className="absolute top-20 right-20 w-40 h-40 bg-white/10 rounded-full blur-3xl animate-pulse"></div>
               <div className="absolute bottom-32 left-16 w-32 h-32 bg-white/5 rounded-full blur-2xl animate-pulse delay-1000"></div>
               <div className="absolute top-1/2 right-1/3 w-24 h-24 bg-gradient-to-br from-white/20 to-transparent rounded-full blur-xl animate-bounce delay-500"></div>
@@ -228,7 +228,6 @@ export const Slider = () => {
         ))}
       </Swiper>
 
-      {/* Custom Navigation Buttons */}
       <div className="swiper-button-prev-custom absolute left-6 top-1/2 -translate-y-1/2 z-20 opacity-0 group-hover:opacity-100 transition-all duration-300">
         <button className="p-4 bg-white/10 backdrop-blur-xl border border-white/20 rounded-full text-white hover:bg-white/20 hover:scale-110 transition-all duration-300 shadow-2xl">
           <ChevronRight className="w-6 h-6 rotate-180" />
@@ -241,7 +240,6 @@ export const Slider = () => {
         </button>
       </div>
 
-      {/* Progress indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20">
         <div className="w-32 h-1 bg-white/20 rounded-full overflow-hidden">
           <div className="h-full bg-white rounded-full animate-progress"></div>

@@ -9,7 +9,6 @@ const CategoryCard = ({ name, image, to }) => (
     whileTap={{ scale: 0.98 }}
     transition={{ type: "spring", damping: 25, stiffness: 300 }}
   >
-
     <Link to={to} className="block" onClick={() => window.scrollTo(0, 0)}>
       <div className="relative aspect-[3/4] w-full overflow-hidden rounded-2xl">
         <img
@@ -18,20 +17,22 @@ const CategoryCard = ({ name, image, to }) => (
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
 
-        {/* Gradient overlays */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
         <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 via-transparent to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
-        {/* Animated border */}
         <div className="absolute inset-0 rounded-2xl border-2 border-white/0 group-hover:border-white/20 transition-all duration-500"></div>
       </div>
 
       <div className="absolute inset-0 flex items-end">
         <div className="w-full p-6 text-white">
           <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-            <h2 className="text-2xl font-bold mb-3 text-white drop-shadow-lg">{name}</h2>
+            <h2 className="text-2xl font-bold mb-3 text-white drop-shadow-lg">
+              {name}
+            </h2>
             <div className="flex items-center group/link">
-              <span className="text-sm font-semibold tracking-wide">EXPLORAR</span>
+              <span className="text-sm font-semibold tracking-wide">
+                EXPLORAR
+              </span>
               <div className="ml-3 flex items-center">
                 <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm group-hover/link:bg-white/30 transition-all duration-300">
                   <svg
@@ -54,7 +55,6 @@ const CategoryCard = ({ name, image, to }) => (
         </div>
       </div>
 
-      {/* Floating particles effect */}
       <div className="absolute top-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
         <div className="w-2 h-2 bg-white/60 rounded-full animate-ping"></div>
       </div>
@@ -68,7 +68,6 @@ const CategoryCard = ({ name, image, to }) => (
 export const Collections = () => {
   return (
     <section className="py-20 px-4 bg-gradient-to-br from-slate-50 via-white to-gray-50 relative overflow-hidden">
-      {/* Background decorative elements */}
       <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-indigo-200/30 to-purple-200/30 rounded-full blur-3xl"></div>
       <div className="absolute bottom-20 right-10 w-40 h-40 bg-gradient-to-br from-pink-200/20 to-indigo-200/20 rounded-full blur-3xl"></div>
 
@@ -84,7 +83,8 @@ export const Collections = () => {
             Nuestras Colecciones
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Explora nuestra selección de prendas destacadas para cada estilo y momento
+            Explora nuestra selección de prendas destacadas para cada estilo y
+            momento
           </p>
         </motion.div>
 

@@ -5,6 +5,7 @@ export const ChatBox = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState("");
   const messagesEndRef = useRef(null);
+  const [isTyping, setIsTyping] = useState(false);
   const [messages, setMessages] = useState([
     {
       type: "bot",
@@ -108,7 +109,6 @@ export const ChatBox = () => {
         </button>
       )}
 
-      {/* Chat Modal */}
       {isOpen && (
         <div className="fixed bottom-20 right-6 z-50 w-72 max-w-[calc(100vw-1rem)] bg-white rounded-2xl shadow-2xl border border-gray-200">
           {/* Header */}
@@ -127,7 +127,6 @@ export const ChatBox = () => {
             </div>
           </div>
 
-          {/* Chat Body */}
           <div className="p-3 max-h-80 overflow-y-auto chat-scroll">
             {/* Messages */}
             <div className="space-y-2 mb-3">
@@ -178,7 +177,6 @@ export const ChatBox = () => {
               </div>
             </div>
 
-            {/* Contact Info */}
             <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-2.5 rounded-lg">
               <p className="text-xs font-medium text-gray-700 mb-1.5">
                 📞 Contacto directo:
@@ -210,7 +208,6 @@ export const ChatBox = () => {
             </div>
           </div>
 
-          {/* Message Input */}
           <div className="border-t border-gray-200 p-3">
             <div className="flex space-x-2">
               <input

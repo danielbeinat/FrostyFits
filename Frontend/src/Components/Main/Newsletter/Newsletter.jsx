@@ -98,10 +98,11 @@ export const Newsletter = () => {
         </p>
       )}
 
-      <p className="animate-fade-in animation-delay-600 text-gray-300 text-lg font-medium mb-6">
-        Síguenos en redes sociales
-      </p>
-      <div className="flex justify-center gap-4 animate-fade-in animation-delay-800">
+      <div className="social-icons">
+        <p className="animate-fade-in animation-delay-600 text-gray-300 text-lg font-medium mb-6">
+          Síguenos en redes sociales
+        </p>
+        <div className="flex justify-center gap-4 animate-fade-in animation-delay-800">
         {[
           {
             Icon: Facebook,

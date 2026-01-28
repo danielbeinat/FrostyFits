@@ -5,7 +5,6 @@ import Product from "../models/Product.js";
 export const addProduct = catchAsync(async (req, res, next) => {
     const { name, image, category, price, aviable, type, sizes, discount, stock } = req.body;
 
-    // Validación personalizada: productos que no son Gorro deben tener al menos una talla
     if (type !== 'Gorro' && (!sizes || sizes.length === 0)) {
         return next(new AppError('At least one size must be selected for this product type', 400));
     }
@@ -94,7 +93,7 @@ export const newcollection = catchAsync(async (req, res, next) => {
 
 export const trendingproducts = catchAsync(async (req, res, next) => {
     const products = await Product.find({ aviable: true })
-        .sort({ price: 1 })  // Ordenar por precio ascendente (más baratos primero)
+        .sort({ price: 1 })
         .limit(8);
 
     res.json({ success: true, products });

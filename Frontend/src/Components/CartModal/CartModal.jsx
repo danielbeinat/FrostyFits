@@ -11,7 +11,6 @@ export const CartModal = ({ open, setOpen }) => {
   const { Allproducts, cart, removeFromCart, getTotalCartAmount } =
     useContext(ShoopContext);
 
-  // Safety check to prevent map errors
   if (!Array.isArray(Allproducts)) {
     console.error("Allproducts is not an array:", Allproducts);
     return null;

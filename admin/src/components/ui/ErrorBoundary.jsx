@@ -16,11 +16,7 @@ export class ErrorBoundary extends React.Component {
       errorInfo: errorInfo,
     });
 
-    // Log error to console in development
     console.error("Error caught by ErrorBoundary:", error, errorInfo);
-
-    // Here you could also log to an error reporting service
-    // logErrorToService(error, errorInfo);
   }
 
   render() {

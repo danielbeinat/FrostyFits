@@ -7,7 +7,6 @@ import { Newsletter } from "./Components/Main/Newsletter/Newsletter";
 import ErrorBoundary from "./Components/ErrorBoundary/ErrorBoundary";
 import LoadingSpinner from "./Components/UI/LoadingSpinner/LoadingSpinner";
 
-// Lazy loaded components for code splitting
 const Home = lazy(() =>
   import("./Pages/Home").then((m) => ({ default: m.Home })),
 );
@@ -53,7 +52,6 @@ const Favorite = lazy(() =>
   import("./Pages/Favorite").then((m) => ({ default: m.Favorite })),
 );
 
-// Info pages lazy loading
 const Contacto = lazy(() =>
   import("./Components/InfoPages/Contacto").then((m) => ({
     default: m.Contacto,
@@ -93,7 +91,6 @@ const TerminosCondiciones = lazy(() =>
   })),
 );
 
-// Loading fallback component
 const PageLoader = () => (
   <div className="min-h-screen flex items-center justify-center bg-gray-50">
     <LoadingSpinner size="lg" />

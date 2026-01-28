@@ -89,7 +89,6 @@ export const Locales = () => {
             </div>
           </div>
 
-          {/* Sucursal Palermo */}
           <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow">
             <div className="flex items-start justify-between mb-4">
               <div>

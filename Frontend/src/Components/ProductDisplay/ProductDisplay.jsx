@@ -60,12 +60,10 @@ export const ProductDisplay = (props) => {
       try {
         await addToCart(product._id, selectedSize, quantity);
       } catch (error) {
-        // Handle authentication error
         if (error.message === "Please login to add items to cart") {
           setShowLoginModal(true);
           return;
         }
-        // Handle other errors
         setErrorModal({
           isOpen: true,
           title: "Error",
@@ -109,14 +107,11 @@ export const ProductDisplay = (props) => {
         animate="visible"
       >
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-          {/* Product Images */}
           <motion.div variants={itemVariants} className="space-y-4">
             <ProductSlider product={product} />
           </motion.div>
 
-          {/* Product Details */}
           <motion.div variants={itemVariants} className="space-y-6">
-            {/* Header */}
             <div className="space-y-3">
               <motion.h1
                 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight"
@@ -152,7 +147,6 @@ export const ProductDisplay = (props) => {
               </div>
             </div>
 
-            {/* Price */}
             <motion.div variants={itemVariants} className="space-y-2">
               <div className="flex items-baseline gap-3">
                 <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
@@ -173,7 +167,6 @@ export const ProductDisplay = (props) => {
               </div>
             </motion.div>
 
-            {/* Payment Options */}
             <motion.div
               variants={itemVariants}
               className="bg-gray-50 p-4 rounded-xl"
@@ -191,7 +184,6 @@ export const ProductDisplay = (props) => {
               </div>
             </motion.div>
 
-            {/* Size Selection */}
             {product.type !== "Gorro" && (
               <motion.div variants={itemVariants} className="space-y-2">
                 <div className="flex items-center justify-between">
@@ -229,7 +221,6 @@ export const ProductDisplay = (props) => {
               </motion.div>
             )}
 
-            {/* Quantity Selector */}
             <motion.div variants={itemVariants} className="space-y-2">
               <h2 className="text-base font-semibold text-gray-900">
                 CANTIDAD:
@@ -269,7 +260,6 @@ export const ProductDisplay = (props) => {
               </div>
             </motion.div>
 
-            {/* Action Buttons */}
             <motion.div variants={itemVariants} className="space-y-3 pt-4">
               <motion.button
                 onClick={handleAddToCart}
@@ -295,7 +285,6 @@ export const ProductDisplay = (props) => {
               </Link>
             </motion.div>
 
-            {/* Trust Badges */}
             <motion.div
               variants={itemVariants}
               className="pt-6 border-t border-gray-200"

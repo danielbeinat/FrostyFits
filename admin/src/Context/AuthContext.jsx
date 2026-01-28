@@ -53,7 +53,6 @@ export const AuthProvider = ({ children }) => {
         setUser(data.user);
         setIsAuthenticated(true);
 
-        // Forzar redirección
         window.location.href = "/";
         return { success: true };
       } else {

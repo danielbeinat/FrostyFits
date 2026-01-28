@@ -178,7 +178,6 @@ export const EditProduct = ({ product, onClose, onUpdate }) => {
     try {
       let updatedProduct = { ...productDetail };
 
-      // Upload new image if selected
       if (image) {
         const formData = new FormData();
         formData.append("product", image);

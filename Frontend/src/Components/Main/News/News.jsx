@@ -45,7 +45,6 @@ export const News = () => {
               image={item.image}
               price={item.price}
               discount={item.discount}
-              // description={item.description}
             />
           ))}
       </section>

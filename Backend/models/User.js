@@ -6,8 +6,6 @@ const UserSchema = new mongoose.Schema({
     password: { type: String, required: true },
     cartData: { type: Object, default: {} },
     date: { type: Date, default: Date.now },
-    // wishlist: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
-
 });
 
 export default mongoose.model("User", UserSchema);

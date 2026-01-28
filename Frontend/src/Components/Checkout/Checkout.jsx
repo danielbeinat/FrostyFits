@@ -6,7 +6,6 @@ export const Checkout = () => {
   const [step, setStep] = useState(1);
   const { getTotalCartAmount, Allproducts, cart } = useContext(ShoopContext);
 
-  // Safety check to prevent map errors
   if (!Array.isArray(Allproducts)) {
     console.error("Allproducts is not an array:", Allproducts);
     return <div className="text-center py-8">Loading products...</div>;

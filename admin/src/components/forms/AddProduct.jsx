@@ -104,7 +104,6 @@ export const AddProduct = () => {
     const { name, value } = e.target;
     setProductDetail((prevDetail) => ({ ...prevDetail, [name]: value }));
 
-    // Clear notification when user starts typing
     if (notification) setNotification(null);
   };
   const toggleApplyDiscount = () => {
@@ -197,7 +196,6 @@ export const AddProduct = () => {
         if (addProductData.success) {
           showNotification("Product added successfully!", "success");
 
-          // Reset form
           setProductDetail({
             name: "",
             image: "",

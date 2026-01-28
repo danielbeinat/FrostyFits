@@ -17,7 +17,6 @@ export const Navbar = () => {
   return (
     <header className="bg-white border-b border-gray-200 px-6 py-4 shadow-sm relative z-50">
       <div className="flex justify-between items-center max-w-7xl mx-auto">
-        {/* Logo Section */}
         <div className="flex items-center space-x-4">
           <div className="rounded-xl p-2">
             <img
@@ -34,15 +33,12 @@ export const Navbar = () => {
           </div>
         </div>
 
-        {/* User Menu Section */}
         <div className="flex items-center space-x-4">
-          {/* Status Indicator */}
           <div className="hidden lg:flex items-center space-x-2 text-green-400">
             <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
             <span className="text-sm font-medium">Online</span>
           </div>
 
-          {/* User Avatar & Dropdown */}
           <div className="relative">
             <button
               onClick={() => setDropdownOpen(!dropdownOpen)}
@@ -81,16 +77,13 @@ export const Navbar = () => {
               </svg>
             </button>
 
-            {/* Dropdown Menu */}
             {dropdownOpen && (
               <>
-                {/* Backdrop */}
                 <div
                   className="fixed inset-0 z-10"
                   onClick={() => setDropdownOpen(false)}
                 ></div>
 
-                {/* Menu */}
                 <div className="absolute right-0 top-full mt-2 w-64 bg-white rounded-xl shadow-xl border border-gray-200 overflow-hidden z-20 slide-in">
                   <div className="p-4 border-b border-gray-100">
                     <div className="flex items-center space-x-3">

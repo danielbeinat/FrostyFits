@@ -20,7 +20,6 @@ const subscribe = async (req, res) => {
     }
 };
 
-// Lógica para enviar boletines
 const sendNewsletter = async (req, res) => {
     const { subject, content } = req.body;
 
@@ -28,7 +27,6 @@ const sendNewsletter = async (req, res) => {
         const subscribers = await Subscriber.find();
         const emails = subscribers.map(sub => sub.email);
 
-        // Enviar el boletín a todos los suscriptores
         for (const email of emails) {
             await sendEmail(email, subject, content, content);
         }
@@ -60,7 +58,7 @@ const sendContactEmail = async (req, res) => {
 
         const mailOptions = {
             from: `"Contacto desde la web" <${email}>`,
-            to: process.env.ADMIN_EMAIL, // Correo del administrador
+            to: process.env.ADMIN_EMAIL,
             subject: "Nuevo mensaje de contacto",
             text: `Nombre: ${name}\nEmail: ${email}\nMensaje: ${message}`,
         };
@@ -71,9 +69,6 @@ const sendContactEmail = async (req, res) => {
     }
 
     catch (error) {
-        console.error("Error al enviar el correo:", error); // Agrega esta línea para registrar el error en la consola
-
-
         res.status(500).send({ message: 'Error al enviar el correo', error });
 
 

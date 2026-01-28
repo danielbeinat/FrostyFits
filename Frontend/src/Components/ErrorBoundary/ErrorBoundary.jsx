@@ -22,13 +22,11 @@ class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, errorInfo) {
-    // Log error to monitoring service
     this.setState({
       error: error,
       errorInfo: errorInfo,
     });
 
-    // Log error details (in production, send to error reporting service)
     if (import.meta.env.DEV) {
       console.error("Error caught by boundary:", error, errorInfo);
     } else {
@@ -83,7 +81,6 @@ class ErrorBoundary extends React.Component {
               <AlertTriangle className="w-8 h-8 text-red-600" />
             </div>
 
-            {/* Error Message */}
             <h1 className="text-2xl font-bold text-gray-900 mb-2">
               ¡Ups! Algo salió mal
             </h1>
@@ -121,7 +118,6 @@ class ErrorBoundary extends React.Component {
               </button>
             </div>
 
-            {/* Additional Help */}
             <div className="mt-6 pt-6 border-t border-gray-200">
               <p className="text-sm text-gray-500 mb-2">
                 Si el problema persiste, contacta a soporte:

@@ -31,7 +31,6 @@ export const Login = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
-        {/* Logo and Brand */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-20 h-20 bg-gray-900 rounded-2xl mb-4">
             <span className="text-3xl font-bold text-white">FF</span>
@@ -42,10 +41,8 @@ export const Login = () => {
           <p className="text-gray-600">Sign in to manage your store</p>
         </div>
 
-        {/* Login Form */}
         <div className="bg-white rounded-2xl shadow-xl p-8">
           <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Email Field */}
             <div className="space-y-2">
               <label
                 htmlFor="email"
@@ -88,7 +85,6 @@ export const Login = () => {
               </div>
             </div>
 
-            {/* Password Field */}
             <div className="space-y-2">
               <label
                 htmlFor="password"
@@ -159,7 +155,6 @@ export const Login = () => {
               </div>
             </div>
 
-            {/* Remember Me & Forgot Password */}
             <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <input
@@ -182,7 +177,6 @@ export const Login = () => {
               </button>
             </div>
 
-            {/* Submit Button */}
             <button
               type="submit"
               disabled={loading}

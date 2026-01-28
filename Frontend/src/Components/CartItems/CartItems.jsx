@@ -8,7 +8,6 @@ export const CartItems = () => {
   const { Allproducts, cart, removeFromCart, getTotalCartAmount } =
     useContext(ShoopContext);
 
-  // Safety check to prevent map errors
   if (!Array.isArray(Allproducts)) {
     console.error("Allproducts is not an array:", Allproducts);
     return <div className="text-center py-8">Loading products...</div>;

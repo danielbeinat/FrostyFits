@@ -22,7 +22,6 @@ export const AppProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [notification, setNotification] = useState(null);
 
-  // Fetch all products
   const fetchProducts = async () => {
     try {
       setLoading(true);
@@ -39,7 +38,6 @@ export const AppProvider = ({ children }) => {
     }
   };
 
-  // Add product
   const addProduct = async (productData) => {
     try {
       setLoading(true);
@@ -54,7 +52,7 @@ export const AppProvider = ({ children }) => {
       const data = await response.json();
 
       if (data.success) {
-        await fetchProducts(); // Refresh products
+        await fetchProducts();
         showNotification("Product added successfully!", "success");
         return { success: true };
       } else {
@@ -70,7 +68,6 @@ export const AppProvider = ({ children }) => {
     }
   };
 
-  // Update product
   const updateProduct = async (id, productData) => {
     try {
       setLoading(true);
@@ -85,7 +82,7 @@ export const AppProvider = ({ children }) => {
       const data = await response.json();
 
       if (data.success) {
-        await fetchProducts(); // Refresh products
+        await fetchProducts();
         showNotification("Product updated successfully!", "success");
         return { success: true };
       } else {
@@ -101,7 +98,6 @@ export const AppProvider = ({ children }) => {
     }
   };
 
-  // Delete product
   const deleteProduct = async (id) => {
     try {
       setLoading(true);
@@ -116,7 +112,7 @@ export const AppProvider = ({ children }) => {
       const data = await response.json();
 
       if (data.success) {
-        await fetchProducts(); // Refresh products
+        await fetchProducts();
         showNotification("Product deleted successfully!", "success");
         return { success: true };
       } else {
@@ -132,13 +128,11 @@ export const AppProvider = ({ children }) => {
     }
   };
 
-  // Show notification
   const showNotification = (message, type = "success") => {
     setNotification({ message, type });
     setTimeout(() => setNotification(null), 5000);
   };
 
-  // Get product statistics
   const getStats = () => {
     const totalProducts = products.length;
     const totalStock = products.reduce(
@@ -161,7 +155,6 @@ export const AppProvider = ({ children }) => {
     };
   };
 
-  // Search products
   const searchProducts = (query) => {
     if (!query.trim()) return products;
 
@@ -174,7 +167,6 @@ export const AppProvider = ({ children }) => {
     );
   };
 
-  // Filter products
   const filterProducts = (filters) => {
     return products.filter((product) => {
       if (

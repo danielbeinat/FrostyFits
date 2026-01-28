@@ -10,20 +10,6 @@ import {
 } from "./Components/UI/Accessibility/AccessibilityProvider.jsx";
 import "./index.css";
 
-// Performance monitoring
-/*
-if (import.meta.env.PROD) {
-  // Report web vitals
-  import("web-vitals").then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
-    getCLS(console.log);
-    getFID(console.log);
-    getFCP(console.log);
-    getLCP(console.log);
-    getTTFB(console.log);
-  });
-}
-*/
-
 ReactDOM.createRoot(document.getElementById("root")).render(
   <AccessibilityProvider>
     <SkipToMain />

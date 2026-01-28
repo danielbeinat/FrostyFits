@@ -1,5 +1,3 @@
-//si el usuario no esta logueado no muestra la lista de deseos
-
 import { createContext, useState, useEffect } from "react";
 
 export const AuthContext = createContext(null);
@@ -7,23 +5,19 @@ import { API_URL } from "../config/config.js";
 
 export const AuthProvider = (props) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user, setUser] = useState(null); // Almacena datos del usuario si es necesario
+  const [user, setUser] = useState(null);
 
-  // Verifica si el usuario está autenticado al cargar la aplicación
   useEffect(() => {
     const token = localStorage.getItem("auth-token");
     if (token) {
       try {
-        // Simple JWT validation without API call
         const payload = JSON.parse(atob(token.split(".")[1]));
         const currentTime = Date.now() / 1000;
 
         if (payload.exp > currentTime) {
           setIsAuthenticated(true);
-          // Optionally decode user info from token if available
           setUser({ id: payload.userId });
         } else {
-          // Token expired
           localStorage.removeItem("auth-token");
           setIsAuthenticated(false);
           setUser(null);
@@ -37,7 +31,6 @@ export const AuthProvider = (props) => {
     }
   }, []);
 
-  // Función para iniciar sesión
   const login = async (email, password) => {
     try {
       const response = await fetch(`${API_URL}/api/auth/login`, {
@@ -62,7 +55,6 @@ export const AuthProvider = (props) => {
     }
   };
 
-  // Función para cerrar sesión
   const logout = () => {
     localStorage.removeItem("auth-token");
     setIsAuthenticated(false);

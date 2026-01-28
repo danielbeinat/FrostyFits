@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom";
 import { Heart, X } from "lucide-react";
 import { useState, useContext } from "react";
-import { AuthContext } from "../../Context/AuthContext"; // Asegúrate de tener un contexto de autenticación
-// import { motion } from "framer-motion";
+import { AuthContext } from "../../Context/AuthContext";
 import { motion, AnimatePresence } from "framer-motion";
 import { formatPrice } from "../../utils/currency";
 
@@ -14,14 +13,13 @@ export const Item = (props) => {
 
   const [showMessage, setShowMessage] = useState(false);
 
-  const { isAuthenticated } = useContext(AuthContext); // Estado global de autenticación
+  const { isAuthenticated } = useContext(AuthContext);
 
   const handleFavoriteClick = () => {
     if (!isAuthenticated) {
       setShowMessage(true);
-      setTimeout(() => setShowMessage(false), 3000); // Oculta el mensaje después de 3 segundos
+      setTimeout(() => setShowMessage(false), 3000);
     } else {
-      // Lógica para agregar a favoritos (se puede implementar en el futuro)
     }
   };
 

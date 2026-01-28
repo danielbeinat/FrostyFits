@@ -1,8 +1,6 @@
 import Joi from 'joi';
 
-// Esquemas de validación
 export const schemas = {
-    // Validación de productos
     product: Joi.object({
         name: Joi.string()
             .min(3)
@@ -84,7 +82,6 @@ export const schemas = {
             .default(true)
     }),
 
-    // Validación de usuarios
     user: Joi.object({
         name: Joi.string()
             .min(2)
@@ -116,7 +113,6 @@ export const schemas = {
             })
     }),
 
-    // Validación de login
     login: Joi.object({
         email: Joi.string()
             .email()
@@ -133,7 +129,6 @@ export const schemas = {
             })
     }),
 
-    // Validación de actualización de productos
     productUpdate: Joi.object({
         id: Joi.string()
             .required()
@@ -212,13 +207,12 @@ export const schemas = {
     })
 };
 
-// Middleware de validación
 export const validate = (schema, source = 'body') => {
     return (req, res, next) => {
         const { error, value } = schema.validate(req[source], {
-            abortEarly: false, // Mostrar todos los errores
-            stripUnknown: true, // Remover campos no conocidos
-            convert: true // Convertir tipos automáticamente
+            abortEarly: false,
+            stripUnknown: true,
+            convert: true
         });
 
         if (error) {
@@ -236,15 +230,12 @@ export const validate = (schema, source = 'body') => {
             });
         }
 
-        // Reemplazar los datos validados
         req[source] = value;
         next();
     };
 };
 
-// Sanitización de entrada
 export const sanitizeInput = (req, res, next) => {
-    // Sanitizar strings para prevenir XSS
     const sanitizeString = (str) => {
         if (typeof str !== 'string') return str;
         return str
@@ -275,7 +266,6 @@ export const sanitizeInput = (req, res, next) => {
         return sanitized;
     };
 
-    // Sanitizar body, query y params
     if (req.body) req.body = sanitizeObject(req.body);
     if (req.query) req.query = sanitizeObject(req.query);
     if (req.params) req.params = sanitizeObject(req.params);

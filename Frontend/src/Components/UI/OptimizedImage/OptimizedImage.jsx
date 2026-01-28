@@ -19,7 +19,6 @@ const OptimizedImage = ({
   const [hasError, setHasError] = useState(false);
   const imgRef = useRef(null);
 
-  // Generate responsive srcset
   const generateSrcSet = (baseSrc) => {
     if (!baseSrc) return "";
 
@@ -29,7 +28,6 @@ const OptimizedImage = ({
       .join(", ");
   };
 
-  // Generate optimized src
   const getOptimizedSrc = (baseSrc) => {
     if (!baseSrc) return "";
 
@@ -39,7 +37,6 @@ const OptimizedImage = ({
       auto: "format,compress",
     });
 
-    // Add dimensions if provided
     if (width) params.set("w", width.toString());
     if (height) params.set("h", height.toString());
 
@@ -54,10 +51,8 @@ const OptimizedImage = ({
     setHasError(true);
   };
 
-  // Fallback image
   const fallbackSrc = "/src/assets/placeholder.webp";
 
-  // If priority, don't lazy load
   if (priority) {
     return (
       <div className={`relative overflow-hidden ${className}`}>
@@ -96,7 +91,6 @@ const OptimizedImage = ({
     );
   }
 
-  // Lazy loaded image
   return (
     <div className={`relative overflow-hidden ${className}`}>
       <LazyLoadImage
@@ -137,7 +131,6 @@ const OptimizedImage = ({
   );
 };
 
-// Specialized components for different use cases
 export const ProductImage = ({ src, alt, className = "", ...props }) => (
   <OptimizedImage
     src={src}

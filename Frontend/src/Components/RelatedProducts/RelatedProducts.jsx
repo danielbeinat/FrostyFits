@@ -48,7 +48,6 @@ export const RelatedProducts = ({ category }) => {
                 image={item.image}
                 price={item.price}
                 discount={item.discount}
-                // description={item.description}
               />
             );
           })}

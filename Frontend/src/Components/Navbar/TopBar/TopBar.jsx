@@ -24,14 +24,11 @@ const contactInfo = [
 export const TopBar = () => {
   return (
     <div className="bg-black border-b border-gray-800/50">
-      {/* Desktop Version */}
       <div className="hidden md:flex items-center justify-between px-6 py-2 max-w-7xl mx-auto">
-        {/* Left side - Welcome message */}
         <div className="flex items-center gap-2 text-sm text-white">
           <span className="font-medium">👋 ¡Bienvenido a nuestra tienda!</span>
         </div>
 
-        {/* Center - Contact info */}
         <div className="flex items-center gap-6">
           {contactInfo.map((item, index) => (
             <div key={index} className="flex items-center gap-2 group">
@@ -53,14 +50,12 @@ export const TopBar = () => {
           ))}
         </div>
 
-        {/* Right side - Location */}
         <div className="flex items-center gap-2 text-sm text-white">
           <MapPin className="text-gray-300 text-xs" />
           <span className="font-medium">Envío nacional</span>
         </div>
       </div>
 
-      {/* Mobile Version */}
       <div className="md:hidden bg-black border-b border-gray-800/50">
         <div className="flex items-center justify-center py-2 px-4">
           <div className="flex items-center gap-3 text-xs text-white">

@@ -1,4 +1,3 @@
-// Secure token management utilities
 class TokenManager {
     constructor() {
         this.TOKEN_KEY = 'auth-token';
@@ -6,10 +5,8 @@ class TokenManager {
         this.USER_KEY = 'user_data';
     }
 
-    // Secure token storage
     setToken(token, refreshToken = null) {
         try {
-            // Consistent storage in both development and production
             localStorage.setItem(this.TOKEN_KEY, token);
             if (refreshToken) {
                 localStorage.setItem(this.REFRESH_TOKEN_KEY, refreshToken);
@@ -21,7 +18,6 @@ class TokenManager {
 
     getToken() {
         try {
-            // Always read from localStorage to match login/register
             return localStorage.getItem(this.TOKEN_KEY);
         } catch (error) {
             console.error('Error getting token:', error);
@@ -31,7 +27,6 @@ class TokenManager {
 
     getRefreshToken() {
         try {
-            // Always read from localStorage to match login/register
             return localStorage.getItem(this.REFRESH_TOKEN_KEY);
         } catch (error) {
             console.error('Error getting refresh token:', error);
@@ -41,7 +36,6 @@ class TokenManager {
 
     removeToken() {
         try {
-            // Always remove from localStorage to match login/register
             localStorage.removeItem(this.TOKEN_KEY);
             localStorage.removeItem(this.REFRESH_TOKEN_KEY);
         } catch (error) {
@@ -49,7 +43,6 @@ class TokenManager {
         }
     }
 
-    // Helper to read cookies (only works for non-httpOnly cookies)
     getCookie(name) {
         const value = `; ${document.cookie}`;
         const parts = value.split(`; ${name}=`);
@@ -57,17 +50,14 @@ class TokenManager {
         return null;
     }
 
-    // Token validation
     isTokenValid() {
         const token = this.getToken();
         if (!token) return false;
 
         try {
-            // Decode JWT payload (basic validation)
             const payload = JSON.parse(atob(token.split('.')[1]));
             const currentTime = Date.now() / 1000;
 
-            // Check if token is expired
             return payload.exp > currentTime;
         } catch (error) {
             console.error('Error validating token:', error);
@@ -75,7 +65,6 @@ class TokenManager {
         }
     }
 
-    // Refresh token logic
     async refreshToken() {
         const refreshToken = this.getRefreshToken();
         if (!refreshToken) return false;
@@ -101,11 +90,9 @@ class TokenManager {
         return false;
     }
 
-    // User data management
     setUser(userData) {
         try {
             if (import.meta.env.PROD) {
-                // Store non-sensitive data in localStorage
                 localStorage.setItem(this.USER_KEY, JSON.stringify(userData));
             } else {
                 sessionStorage.setItem(this.USER_KEY, JSON.stringify(userData));
@@ -137,12 +124,10 @@ class TokenManager {
         }
     }
 
-    // Complete logout
     logout() {
         this.removeToken();
         this.removeUser();
 
-        // Clear all storage
         try {
             localStorage.clear();
             sessionStorage.clear();
@@ -152,21 +137,18 @@ class TokenManager {
     }
 }
 
-// Input sanitization utilities
 class InputSanitizer {
-    // Sanitize string input
     static sanitizeString(input) {
         if (typeof input !== 'string') return '';
 
         return input
             .trim()
-            .replace(/[<>]/g, '') // Remove potential HTML tags
-            .replace(/javascript:/gi, '') // Remove javascript protocol
-            .replace(/on\w+=/gi, '') // Remove event handlers
-            .slice(0, 1000); // Limit length
+            .replace(/[<>]/g, '')
+            .replace(/javascript:/gi, '')
+            .replace(/on\w+=/gi, '')
+            .slice(0, 1000);
     }
 
-    // Sanitize email
     static sanitizeEmail(email) {
         if (typeof email !== 'string') return '';
 
@@ -176,7 +158,6 @@ class InputSanitizer {
         return emailRegex.test(sanitized) ? sanitized : '';
     }
 
-    // Sanitize numeric input
     static sanitizeNumber(input, min = 0, max = 100) {
         const num = parseInt(input, 10);
 
@@ -184,16 +165,14 @@ class InputSanitizer {
         return Math.max(min, Math.min(max, num));
     }
 
-    // Sanitize phone number
     static sanitizePhone(phone) {
         if (typeof phone !== 'string') return '';
 
         return phone
-            .replace(/[^\d+\-\s()]/g, '') // Keep only valid phone characters
-            .slice(0, 20); // Limit length
+            .replace(/[^\d+\-\s()]/g, '')
+            .slice(0, 20);
     }
 
-    // XSS prevention
     static escapeHtml(text) {
         const div = document.createElement('div');
         div.textContent = text;
@@ -201,7 +180,6 @@ class InputSanitizer {
     }
 }
 
-// API request interceptor for security
 class SecureAPI {
     constructor(tokenManager) {
         this.tokenManager = tokenManager;
@@ -218,7 +196,6 @@ class SecureAPI {
             ...options,
         };
 
-        // Add auth token if available
         let token = this.tokenManager.getToken();
         if (!token) {
             try {
@@ -231,7 +208,6 @@ class SecureAPI {
             config.headers['auth-token'] = token;
         }
 
-        // Add CSRF protection
         if (config.method !== 'GET') {
             config.headers['X-CSRF-Token'] = this.getCSRFToken();
         }
@@ -239,7 +215,6 @@ class SecureAPI {
         try {
             const response = await fetch(url, config);
 
-            // Handle token refresh
             if (response.status === 401) {
                 const refreshed = await this.tokenManager.refreshToken();
                 if (refreshed) {
@@ -257,14 +232,12 @@ class SecureAPI {
     }
 
     getCSRFToken() {
-        // Get CSRF token from meta tag or cookie
         const metaTag = document.querySelector('meta[name="csrf-token"]');
         if (metaTag) return metaTag.getAttribute('content');
 
         return this.tokenManager.getCookie('csrf_token') || '';
     }
 
-    // Convenience methods
     get(endpoint, options = {}) {
         return this.request(endpoint, { ...options, method: 'GET' });
     }

@@ -9,14 +9,12 @@ export const Product = () => {
   const { Allproducts } = useContext(ShoopContext);
   const { productId } = useParams();
 
-  // Verificar si Allproducts está definido y no está vacío
   if (!Allproducts || Allproducts.length === 0) {
     return <div>Cargando productos...</div>;
   }
 
   const product = Allproducts.find((e) => e._id === productId);
 
-  // Verificar si el producto existe
   if (!product) {
     return <div>Producto no encontrado</div>;
   }
