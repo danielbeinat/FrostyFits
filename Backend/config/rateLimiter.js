@@ -16,6 +16,10 @@ const createRateLimiter = (options = {}) => {
             // Omitir rate limiting para rutas de salud y archivos estáticos
             return req.path === '/health' || req.path.startsWith('/images');
         },
+        skipSuccessfulRequests: false,
+        skipFailedRequests: false,
+        // Omitir validación de X-Forwarded-For para Koyeb
+        validate: { xForwardedForHeader: false },
         ...options
     });
 };
