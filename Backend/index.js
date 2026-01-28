@@ -22,8 +22,8 @@ import User from "./models/User.js";
 const app = express();
 dotenv.config();
 
-// Trust proxy for Koyeb
-app.set('trust proxy', true);
+// Skip trust proxy to avoid rate limiting issues
+// app.set('trust proxy', false);
 
 // Connect to database
 db();
