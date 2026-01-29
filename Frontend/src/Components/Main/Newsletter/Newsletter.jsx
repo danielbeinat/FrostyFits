@@ -103,53 +103,54 @@ export const Newsletter = () => {
           Síguenos en redes sociales
         </p>
         <div className="flex justify-center gap-4 animate-fade-in animation-delay-800">
-        {[
-          {
-            Icon: Facebook,
-            href: "#",
-            color: "hover:text-blue-400",
-            bgColor: "group-hover:shadow-blue-500/25",
-            label: "Facebook",
-          },
-          {
-            Icon: Instagram,
-            href: "#",
-            color: "hover:text-pink-400",
-            bgColor: "group-hover:shadow-pink-500/25",
-            label: "Instagram",
-          },
-          {
-            Icon: Twitter,
-            href: "#",
-            color: "hover:text-sky-400",
-            bgColor: "group-hover:shadow-sky-500/25",
-            label: "Twitter",
-          },
-          {
-            Icon: Youtube,
-            href: "#",
-            color: "hover:text-red-400",
-            bgColor: "group-hover:shadow-red-500/25",
-            label: "YouTube",
-          },
-          {
-            Icon: Music,
-            href: "#",
-            color: "hover:text-gray-300",
-            bgColor: "group-hover:shadow-gray-500/25",
-            label: "TikTok",
-          },
-        ].map(({ Icon, href, color, bgColor, label }, index) => (
-          <a
-            key={index}
-            href={href}
-            className={`group relative p-4 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 text-white/80 ${color} transition-all duration-300 hover:bg-white/10 hover:border-white/20 hover:shadow-2xl ${bgColor} hover:scale-110 hover:-translate-y-1`}
-            aria-label={label}
-          >
-            <Icon className="w-6 h-6" />
-            <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-          </a>
-        ))}
+          {[
+            {
+              Icon: Facebook,
+              href: "#",
+              color: "hover:text-blue-400",
+              bgColor: "group-hover:shadow-blue-500/25",
+              label: "Facebook",
+            },
+            {
+              Icon: Instagram,
+              href: "#",
+              color: "hover:text-pink-400",
+              bgColor: "group-hover:shadow-pink-500/25",
+              label: "Instagram",
+            },
+            {
+              Icon: Twitter,
+              href: "#",
+              color: "hover:text-sky-400",
+              bgColor: "group-hover:shadow-sky-500/25",
+              label: "Twitter",
+            },
+            {
+              Icon: Youtube,
+              href: "#",
+              color: "hover:text-red-400",
+              bgColor: "group-hover:shadow-red-500/25",
+              label: "YouTube",
+            },
+            {
+              Icon: Music,
+              href: "#",
+              color: "hover:text-gray-300",
+              bgColor: "group-hover:shadow-gray-500/25",
+              label: "TikTok",
+            },
+          ].map(({ Icon, href, color, bgColor, label }, index) => (
+            <a
+              key={index}
+              href={href}
+              className={`group relative p-4 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 text-white/80 ${color} transition-all duration-300 hover:bg-white/10 hover:border-white/20 hover:shadow-2xl ${bgColor} hover:scale-110 hover:-translate-y-1`}
+              aria-label={label}
+            >
+              <Icon className="w-6 h-6" />
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </a>
+          ))}
+        </div>
       </div>
 
       <div className="mt-6 text-center animate-fade-in animation-delay-1000">
