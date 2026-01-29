@@ -239,9 +239,9 @@ export const CartItems = () => {
             </div>
 
             {/* Sidebar */}
-            <div className="lg:col-span-1 space-y-6">
+            <div className="lg:col-span-1 space-y-6 sticky top-24 h-fit">
               {/* Cart Summary */}
-              <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl p-6 text-white shadow-xl sticky top-24">
+              <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl p-6 text-white shadow-xl">
                 <h2 className="text-2xl font-bold mb-6">Resumen</h2>
 
                 <div className="space-y-4 mb-6">

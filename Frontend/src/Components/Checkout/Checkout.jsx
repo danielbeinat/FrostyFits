@@ -165,7 +165,7 @@ export const Checkout = () => {
         {step === 3 && <div>Payment form content</div>}
       </div>
 
-      <div className="bg-white rounded-lg shadow-md h-fit">
+      <div className="bg-white rounded-lg shadow-md h-fit sticky top-24">
         <div className="p-6 space-y-6">
           <h2 className="text-xl font-bold">Resumen de compra</h2>
 
