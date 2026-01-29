@@ -1,6 +1,7 @@
 import { Suspense, lazy } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Navbar } from "./Components/Navbar/Navbar";
+import ScrollToTop from "./Components/ScrollToTop/ScrollToTop";
 import { Footer } from "./Components/Footer/Footer";
 import { ChatBox } from "./Components/ChatBox/ChatBox";
 import { Newsletter } from "./Components/Main/Newsletter/Newsletter";
@@ -101,6 +102,7 @@ export const App = () => {
   return (
     <div className="app">
       <ErrorBoundary>
+        <ScrollToTop />
         <Navbar />
 
         <main

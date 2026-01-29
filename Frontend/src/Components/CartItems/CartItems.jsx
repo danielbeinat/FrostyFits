@@ -14,7 +14,7 @@ export const CartItems = () => {
   }
 
   return (
-    <div className="mx-auto px-4 py-8  font-parkinsans">
+    <div className="mx-auto px-4 py-8 pt-24 font-parkinsans">
       <div className="bg-white shadow-lg rounded-lg overflow-hidden">
         <div className="hidden md:grid grid-cols-6 gap-4 p-4 bg-gray-100 font-semibold text-gray-700">
           <h2>Producto</h2>

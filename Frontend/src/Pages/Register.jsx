@@ -58,6 +58,7 @@ export const Register = () => {
           type: "error",
           title: "Error al crear cuenta",
           message:
+            data.message ||
             data.msg ||
             "No hemos podido crear tu cuenta. Por favor, verifica los datos e intenta nuevamente.",
         });

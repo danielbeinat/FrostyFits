@@ -57,6 +57,7 @@ export const Login = () => {
           type: "error",
           title: "Error de autenticación",
           message:
+            data.message ||
             data.msg ||
             "Las credenciales ingresadas son incorrectas. Por favor, verifica tus datos e intenta nuevamente.",
         });

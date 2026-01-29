@@ -24,11 +24,12 @@ export const Checkout = () => {
     e.preventDefault();
     if (step < 3) {
       setStep(step + 1);
+      window.scrollTo(0, 0);
     }
   };
 
   return (
-    <div className=" mx-auto p-4 grid md:grid-cols-[1fr,400px] gap-8">
+    <div className=" mx-auto p-4 pt-24 grid md:grid-cols-[1fr,400px] gap-8">
       <div className="space-y-8">
         <div className="flex items-center gap-2">
           <div className="flex h-8 w-8 items-center justify-center rounded-full bg-black text-sm font-medium text-white">
