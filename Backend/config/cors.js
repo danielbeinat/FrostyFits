@@ -42,21 +42,21 @@ const corsOptions = {
             }
         };
 
-        // En producción, verificar origen
-        if (process.env.NODE_ENV === 'production') {
-            // Permitir peticiones sin Origin (directas, herramientas, etc.)
-            if (!origin) return callback(null, true);
-            if (!allowedOrigins.includes(origin) && !isVercelOrigin(origin) && !isNetlifyOrigin(origin)) {
-                return callback(new Error('Not allowed by CORS'));
-            }
-        }
+        // Permitir peticiones sin Origin (directas, herramientas, etc.)
+        if (!origin) return callback(null, true);
 
-        // En desarrollo, permitir orígenes conocidos o sin origen (para herramientas)
-        if (!origin || allowedOrigins.includes(origin) || isVercelOrigin(origin) || isNetlifyOrigin(origin)) {
+        // Verificar si el origen está permitido
+        if (allowedOrigins.includes(origin) || isVercelOrigin(origin) || isNetlifyOrigin(origin)) {
             return callback(null, true);
         }
 
-        return callback(new Error('Not allowed by CORS'));
+        // En producción, rechazar orígenes no permitidos
+        if (process.env.NODE_ENV === 'production') {
+            return callback(new Error('Not allowed by CORS'));
+        }
+
+        // En desarrollo, permitir cualquier origen
+        return callback(null, true);
     },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
