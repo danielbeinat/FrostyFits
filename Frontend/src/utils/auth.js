@@ -183,7 +183,7 @@ class InputSanitizer {
 class SecureAPI {
     constructor(tokenManager) {
         this.tokenManager = tokenManager;
-        this.baseURL = import.meta.env.VITE_API_URL || 'https://impossible-berny-dev321-195cbe0d.koyeb.app';
+        this.baseURL = import.meta.env.VITE_API_URL || '';
     }
 
     async request(endpoint, options = {}) {
