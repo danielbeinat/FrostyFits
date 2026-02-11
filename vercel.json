@@ -1,25 +1,61 @@
 {
     "version": 2,
-    "builds": [
+    "rewrites": [
         {
-            "src": "Frontend/package.json",
-            "use": "@vercel/static-build",
-            "config": {
-                "distDir": "Frontend/dist"
-            }
-        }
-    ],
-    "routes": [
-        {
-            "src": "/api/(.*)",
-            "dest": "/api/$1"
+            "source": "/api/auth/login",
+            "destination": "/api/auth/index.js?action=login"
         },
         {
-            "src": "/(.*)",
-            "dest": "/Frontend/$1"
+            "source": "/api/auth/signup",
+            "destination": "/api/auth/index.js?action=signup"
+        },
+        {
+            "source": "/api/products/allproducts",
+            "destination": "/api/products/all.js?action=allproducts"
+        },
+        {
+            "source": "/api/products/newcollection",
+            "destination": "/api/products/all.js?action=newcollection"
+        },
+        {
+            "source": "/api/products/trending",
+            "destination": "/api/products/all.js?action=trending"
+        },
+        {
+            "source": "/api/products/search",
+            "destination": "/api/products/all.js?action=search"
+        },
+        {
+            "source": "/api/subscribers/subscribe",
+            "destination": "/api/subscribers/index.js?action=subscribe"
+        },
+        {
+            "source": "/api/subscribers/send-contact-email",
+            "destination": "/api/subscribers/index.js?action=contact"
+        },
+        {
+            "source": "/api/subscribers/send-newsletter",
+            "destination": "/api/subscribers/index.js?action=newsletter"
+        },
+        {
+            "source": "/api/users/addtocart",
+            "destination": "/api/users/cart.js?action=add"
+        },
+        {
+            "source": "/api/users/getCart",
+            "destination": "/api/users/cart.js?action=get"
+        },
+        {
+            "source": "/api/users/removefromcart",
+            "destination": "/api/users/cart.js?action=remove"
+        },
+        {
+            "source": "/api/(.*)",
+            "destination": "/api/$1"
+        },
+        {
+            "source": "/(.*)",
+            "destination": "/index.html"
         }
-    ],
-    "env": {
-        "NODE_ENV": "production"
-    }
+    ]
 }

@@ -2,8 +2,11 @@
   "name": "frostyfits-fullstack",
   "version": "1.0.0",
   "description": "FrostyFits E-commerce - Full Stack Application",
+  "workspaces": [
+    "Frontend"
+  ],
   "scripts": {
-    "build": "cd Frontend && npm install && npm run build"
+    "build": "npm run build --workspace=Frontend && rm -rf public && mv Frontend/dist public"
   },
   "dependencies": {
     "mongoose": "^8.5.0",
