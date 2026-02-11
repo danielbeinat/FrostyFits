@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "FrostyFits E-commerce - Full Stack Application",
   "workspaces": [
-    "Frontend"
+    "Frontend",
+    "admin"
   ],
   "scripts": {
-    "build": "npm run build --workspace=Frontend && rm -rf public && mv Frontend/dist public"
+    "build": "npm run build --workspace=Frontend && npm run build --workspace=admin && rm -rf public && mv Frontend/dist public && mv admin/dist public/admin"
   },
   "dependencies": {
     "mongoose": "^8.5.0",
